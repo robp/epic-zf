@@ -1,0 +1,640 @@
+@CHARSET "UTF-8";
+
+/**
+ * ----------------------------------------------
+ * Main page layout.
+ * ----------------------------------------------
+ */
+body {
+	margin: 0;
+	color: #666;
+}
+
+.container {
+	width: 950px;
+}
+
+#header {
+	float: left;
+	width: 100%;
+	background-color: #666;
+}
+
+
+#main {
+	clear: both;
+	float: left;
+	width: 100%;
+	margin: 30px auto;
+}
+#main > .inside {
+	width: 850px;
+	margin: 0 auto;
+}
+
+#content {
+	margin: 30px 0 0;
+}
+
+.breadcrumb {
+	clear: both;
+	margin: 30px 0 0;
+}
+/*
+.breadcrumb:first-child {
+	margin-top: 0;
+}
+.breadcrumb:last-child {
+	margin-bottom: 0;
+}
+*/
+
+#footer {
+	clear: both;
+	margin: 30px 0 15px;
+	text-align: center;
+}
+
+/**
+ * ----------------------------------------------
+ * General styles
+ * ----------------------------------------------
+ */
+h1 {
+	font-size: 2em;
+}
+h2 {
+	font-size: 1.5em;
+}
+h3 {
+	font-size: 1.2em;
+}
+h4,h5,h6 {
+	font-size: 1em;
+}
+
+h1,h2,h3,h4,h5,h6 {
+	text-transform: uppercase;
+}
+
+a:link,a:visited {
+	text-decoration: none;
+	border-bottom: 1px dotted;
+	color: #000;
+}
+fieldset.collapsed legend,
+fieldset.collapsible legend {
+	color: #000;
+}
+
+a:hover {
+	background-color: #333;
+	color: #fff;
+	border-bottom: 1px solid #333;
+}
+
+a.noborder, #primary-links .navigation a,.menu-first a {
+	background-color: transparent;
+	border-bottom: none;
+}
+
+div.fullsize a.noborder:hover, div.thumbnail a.noborder:hover {
+	background-color: transparent;
+	color: #000;
+}
+
+a.reverse, #primary-links .navigation a,.menu-first a {
+	color: #fff;
+}
+
+body,textarea {
+	font-family: "Lucida Grande", Tahoma, Verdana, Arial, sans-serif;
+}
+
+table {
+	border: 1px solid #999;
+	border-left: 0;
+	border-right: 0;
+}
+
+thead th {
+	color: #000;
+	background-color: #ddd;
+	border-bottom: 1px solid #999;
+}
+
+tr.even td,
+table.tablesorter tr.odd td {
+	background-color: #eee;
+}
+table.tablesorter tr.even td {
+	background-color: transparent;
+}
+
+td, th {
+	border-left: 1px solid #999;
+}
+td.first, th.first {
+	border-left: none;
+	padding-left: 5px;
+}
+td.last, th.last {
+	padding-right: 10px;
+}
+
+/* these headers have an icon on the rhs for sorting, so pad it */
+th.header {
+	padding-right: 21px;
+}
+
+th.numeric, td.numeric {
+	text-align: right;
+}
+
+tr.sectionHeader td {
+	color: #000;
+	border-top: 1px solid #999;
+	border-bottom: 1px solid #999;
+}
+
+/** If the sectionHeader is the first row, don't add a border on top. */
+tr.sectionHeader:first-child td {
+	border-top: 0;
+}
+		
+
+/**
+ * ----------------------------------------------
+ * General form styles.
+ * ----------------------------------------------
+ */
+ 
+input[type="checkbox"],
+input[type="radio"],
+input.checkbox,
+input.radio {
+	top: 0;
+}
+
+input[type="text"],
+input[type="password"],
+input.text,
+input.title,
+textarea,
+select {
+	padding: 4px;
+}
+
+fieldset {
+	background: #f4f4f4 url("../images/fieldset.bg.png") repeat-x scroll 0 0;
+}	
+
+/**
+ * ----------------------------------------------
+ * Zend form styles.
+ * ----------------------------------------------
+ */
+
+dl.zend_form dd {
+	margin-left: 0;
+	margin-bottom: 1em;
+}
+
+dl.zend_form dd img {
+	margin-top: 0.3em;
+	border: 1px solid;
+}
+
+label.optional {
+	font-weight: normal;
+}
+
+dl.zend_form input[type="text"],
+dl.zend_form input[type="password"],
+dl.zend_form input.text,
+dl.zend_form input.title,
+dl.zend_form textarea,
+dl.zend_form select
+{
+	margin: 0.3em 0 0;
+}
+
+dl.zend_form textarea {
+	height: auto;
+	font-size: inherit;
+}
+
+dl.zend_form input[type="checkbox"],
+dl.zend_form input[type="radio"],
+dl.zend_form input.checkbox,
+dl.zend_form input.radio {
+	margin-bottom: 0.3em;
+}
+
+
+dl.zend_form dd img {
+	border-color: #bbb;
+}
+
+ul.errors,p.description,p.hint {
+	margin-top: 0.2em;
+	margin-bottom: 0;
+	font-size: 0.8em;
+}
+
+ul.errors {
+	color: #b33;
+}
+
+.form-required {
+	color: #f00;
+}
+
+
+/**
+ * ----------------------------------------------
+ * General page styles.
+ * ----------------------------------------------
+ */
+#logo  {
+	float: left;
+	margin: 0 0 0 10px;
+	color: #fff;
+	font-size: 1.8em;
+	text-transform: uppercase;
+}
+
+ul li.active > a {
+	font-weight: bold;
+}
+
+#primary-links {
+	float: right;
+	position: relative;
+	width: 205px;
+	margin: 0;
+	border: 0;
+	background-color: #666;
+	color: #fff;
+	font-size: 1.8em;
+	text-align: right;
+	text-transform: uppercase;
+}
+
+#primary-links .menu-first {
+	cursor: pointer;
+	margin: 0 10px 0 0;
+	padding: 0 20px 0 0;
+	background: transparent url('../images/nav_arrow.gif') no-repeat right;
+}
+
+#primary-links .navigation {
+	display: none;
+}	
+#primary-links .navigation, #primary-links .navigation ul {
+	position: absolute;
+	width: 100%;
+	right: 0;
+	margin: 0;
+	list-style-type: none;
+	background-color: #000;
+}
+
+#primary-links .navigation li {
+	padding: 0 10px;
+}
+
+#primary-links .navigation li:hover {
+	background-color: #666;
+}
+
+/**
+ * Tab-style menu.
+ */
+ul.tabs {
+	position: relative;
+	list-style-type: none;
+	margin-left: 0;
+	padding-left: 8px;
+	border-bottom: 1px solid #333;
+}
+ul.tabs li {
+	display: inline-block;
+	margin-right: 2px;
+}
+ul.tabs li a {
+	display: inline-block;
+	padding: 2px 10px;
+	border: 1px solid #ccc;
+	border-bottom-width: 0;
+	background-color: #eee;
+}
+ul.tabs li a:hover {
+	background-color: #333;
+}
+ul.tabs li.active a {
+	margin-bottom: -1px;
+	padding: 4px 12px 3px;
+	border-color: #333;
+	background-color: #fff;
+}
+ul.tabs li.active a:hover {
+	color: #333;
+}
+/* Done */
+
+
+h1.title {
+	margin-bottom: 20px;
+}
+div.messages {
+	margin: 20px 0;
+	padding: 5px;
+	border: 1px solid #ccc;
+}
+ul.messages {
+	margin-bottom: 0;
+}
+
+div.pager {
+	margin-bottom: 30px;
+}
+
+ul.pager {
+	display: inline-block;
+	margin: 0 auto;
+	list-style-type: none;
+	text-transform: uppercase;
+}
+
+ul.pager li {
+	float: left;
+	padding: 0 10px;
+	font-size: 1.4em;
+	line-height: 1em;
+}
+
+ul.pager li.first {
+	border-right: 2px solid #000;
+	padding-left: 0;
+}
+
+ul.pager li.last {
+	border-left: 2px solid #000;
+	padding-right: 0;
+}
+
+div.col {
+	float: left;
+	margin-left: 20px;
+}
+div.col.first {
+	margin-left: 0;
+}
+
+#zend-powered {
+	text-align: center;
+}
+
+#zend-powered a {
+	display: block;
+	width: 127px;
+	height: 25px;
+	margin: 0 auto;
+	border: 0;
+	background: transparent url(../images/PoweredBy_ZF_4LightBG.png) no-repeat;
+	text-indent: -9999px;
+}
+
+/**
+ * ----------------------------------------------
+ * Specific page styles.
+ * ----------------------------------------------
+ */
+ 
+/**
+ * ----------------------------------------------
+ * Contact page styles.
+ * ----------------------------------------------
+ */
+#contact-form-contact {
+	width: 400px;
+}
+
+/**
+ * ----------------------------------------------
+ * Photo page styles.
+ * ----------------------------------------------
+ */
+ul.sets,ul.photos {
+	list-style-type: none;
+	margin: 60px 0 0;
+	padding: 0;
+	
+}
+
+ul.sets li,ul.photos li {
+	display: inline-block;
+	margin-right: 90px;
+	margin-bottom: 90px;
+	vertical-align: top;
+}
+
+ul.sets h2,ul.photos h2 {
+	line-height: 1.3em;
+}
+
+div.thumbnail {
+	width: 258px;
+	height: 259px;
+}
+
+div.thumbnail a {
+	display: block;
+	border: none;
+	background-color: transparent;
+}
+
+img.thumbnail,img.fullsize {
+	border: 1px solid #ccc;
+	padding: 8px 8px 9px;
+}
+img.thumbnail:hover {
+	border-color: #999;
+}
+
+img.fullsize {
+	padding: 12px 12px 14px;
+}
+
+div.fullsize {
+	clear: both;
+	margin-top: 60px;
+}
+
+.photoCard {
+	margin: 30px 0 60px;
+}
+
+.photoCard .title {
+	font-weight: bold;
+	color: #000;
+}
+
+.photoTags {
+	display: none;
+}
+
+
+/**
+ * ----------------------------------------------
+ * Blog page styles.
+ * ----------------------------------------------
+ */
+.blogger-post-footer {
+	display: none;
+}
+
+.entryFooter {
+	font-size: .9em;
+	margin-bottom: 3em;
+	font-style: italic;
+}
+.entryFooter a, .entryTime {
+	font-style: normal;
+}
+
+.entries {
+	width: 580px;
+	margin-top: 30px;
+}
+
+.archive {
+	width: 250px;
+	margin-top: 30px;
+}
+
+.archive ul {
+	margin-right: 0;
+}
+
+.categories ul {
+	margin-left: 0;
+	margin-right: 0;
+	list-style-type: none; 
+}
+.categories li {
+	margin: .2em 0;
+}
+
+#feeds {
+	margin-top: 30px;
+}
+
+/**
+ * ----------------------------------------------
+ * Homepage override styles.
+ * ----------------------------------------------
+ */
+body.front h1.title {
+	display: none;
+}
+
+p.welcome {
+	font-size: 1.1em;
+	font-style: italic;
+}
+	
+#homePhotos {
+	float: left;
+	width: 100%;
+	margin-bottom: 60px;
+}
+#homePhotos div.fullsize {
+	clear: both;
+	padding-top: 10px;
+}
+#homePhotos img.fullsize {
+	max-width: 370px;
+	max-height: 370px;
+}
+#homePhotos img.fullsize:hover {
+	border-color: #999;
+}
+
+#homePhotos .col.last {
+	float: right;
+}
+
+#homeEntries .entries {
+	float: left;
+	margin-top: 10px;
+	width: 100%;
+}
+#homeEntries .entry {
+	float: left;
+	width: 30%;
+	padding: 0 15px;
+	border-left: 1px solid #ccc;
+}
+#homeEntries .entry h3 {
+	line-height: 1.4em;
+}
+#homeEntries .first {
+	border-left: none;
+	padding-left: 0;
+}
+#homeEntries .last {
+	border-left: none;
+	padding-right: 0;
+}
+
+/** Node edit form */
+#autoalias-element input[type="checkbox"] {
+	margin-bottom: 1em;
+
+}
+
+/** Menu item list */
+td.menuitem-visible {
+	font-weight: bold;
+}
+
+/** Comments */
+#comments {
+	margin-top: 2em;
+}
+
+#comments .node {
+	margin-bottom: 1em;
+}
+
+#comments .node h2.node-title {
+	font-size: 1.2em;
+}
+
+#comments .node .node-footer {
+	margin-top: 1em;
+}
+
+#comments .node > .node-list {
+	margin-top: 1em;
+	padding-left: 2em;
+}
+
+/** Collapsible lists */
+ul.collapsible {
+	margin-left: 0;
+	list-style-type: none; 
+}
+
+ul.collapsible li {
+	list-style-type: none;
+	margin: .6em 0;
+}
+
+ul.collapsible .toggle {
+	cursor: pointer;
+	margin-right: 2px;
+}
+

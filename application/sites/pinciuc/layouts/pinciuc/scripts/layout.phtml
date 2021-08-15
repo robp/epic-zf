@@ -1,0 +1,69 @@
+<?
+// TODO: Create locale module that sets up language and direction info.
+$language = 'en';
+$direction = 'ltr';
+
+$baseUrl = $this->baseUrl();
+$this->doctype('XHTML1_STRICT');
+$this->headMeta()->appendHttpEquiv('Content-Type', 'text/html; charset=utf-8');
+$this->headLink()->headLink(array('rel' => 'favicon', 'href' => "$baseUrl/favicon.ico"));
+$this->headLink()->appendStylesheet("$baseUrl/styles/blueprint/screen.css", 'screen, projection');
+$this->headLink()->appendStylesheet("$baseUrl/styles/blueprint/print.css", 'print');
+$this->headLink()->appendStylesheet("$baseUrl/styles/blueprint/ie.css", 'screen, projection', 'lt IE 8');
+$this->headLink()->appendStylesheet("$baseUrl/styles/pinciuc.css", 'screen, projection');
+$this->headTitle()->setSeparator(' | ');
+$this->headTitle($this->layout()->title);
+$this->headTitle()->append('Rob Pinciuc - Photography, Updates, Etc.');
+?>
+<?= $this->doctype() ?>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?= $language ?>" lang="<?= $language ?>" dir="<?= $direction ?>">
+
+<head>
+    <?= $this->headMeta() ?>
+    <?= $this->headTitle() ?>
+    <?= $this->headLink() ?>
+    <?= $this->headStyle() ?>
+    <?= $this->partial('_onload.phtml') ?>
+    <?= $this->jQuery() // load this before headScript(), since some of those scripts may rely on jQuery! ?>
+    <?= $this->headScript() ?>
+</head>
+
+<body id="<?//= $this->layout()->activePage->id ?>" class="<?//= $this->layout()->activePage->class ?>">
+	<div class="container">
+		<div id="header">
+			<div class="inside">
+	            <?= $this->partial('_header.phtml') ?>
+	        </div>
+	    </div>
+        <div id="main">
+        	<div class="inside">
+        		<? if ($this->layout()->title): ?>
+                	<?= $this->navigation()->breadcrumbs()->renderPartial($this->navigation, '_pageTitle.phtml') ?>
+        	    <? endif; ?>
+        	    
+                <?//= $this->navigation()->menu()->setRenderInvisible(FALSE)->renderSubMenu($this->layout()->activePage, 'navigation tabs') ?>
+                <?//= $this->partial('_subMenu.phtml') ?>
+
+        		<? if (isset($this->messages) && count($this->messages)): ?>
+	                <?= $this->partial('_messages.phtml', array('messages' => $this->messages)) ?>
+                <? endif; ?>
+                
+	        	<div id="content">
+	                <?= $this->layout()->content ?>
+	            </div>
+
+        		<div class="breadcrumb"><?= $this->navigation()->breadcrumbs()->render() ?></div>
+            </div>
+        </div>
+        <div id="footer">
+        	<div class="inside">
+            <?= $this->partial('_footer.phtml') ?>
+            </div>
+        </div>
+        <?= $this->partial('index/_menu.phtml', 'menu', array('menu' => $this->getMenu('navigation'))) ?>
+        <?= $this->partial('index/_menu.phtml', 'menu', array('menu' => $this->getMenu('primary-links'))) ?>
+	</div>
+<?= $this->inlineScript() ?>
+</body>
+
+</html>

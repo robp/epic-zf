@@ -1,0 +1,12 @@
+<?
+//$this->headTitle($this->category->getTerm());
+$active = $this->navigation()->findActive($this->navigation()->getContainer());
+$active['page']->label = $this->category->getTerm();
+?>
+<?= $this->partial('updates/_layout.phtml', array(
+	'messages' => $this->messages,
+	'page' => $this->page,
+    'pages' => $this->pages,
+    'entries' => $this->entries,
+)) 
+?>

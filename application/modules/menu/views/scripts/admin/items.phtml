@@ -1,0 +1,42 @@
+<?php 
+    function doItems($script, array &$result, $items, $depth = 0)
+    {
+        foreach ($items as $item) {
+            $itemArr = array(
+                '<input type="checkbox"/>',
+                array(
+//                    ($depth ? '&lfloor; ' : '') . $script->escape($item->label), 
+                    ($depth ? '&lfloor; ' : '') . '<a href="' . $item->getPage()->getHref() . '">' . $script->escape($item->label) . '</a>', 
+                array('class' => ($item->visible ? 'menuitem-visible' : ''), 'style' => 'text-indent: ' . ($depth*2) . 'em;')
+                ),
+                array(
+                    $script->yesNo($item->visible), 
+                    array('class' => ($item->visible ? 'menuitem-visible' : ''))
+                ),
+                $script->yesNo($item->expanded),
+                $script->escape($item->order),
+                '<a href="' . $script->url(array('module' => 'menu', 'action' => 'itemedit', 'id' => $item->id), 'adminTask', TRUE) . '" title="Edit '. $script->escape($item->label) . '">Edit</a>',
+                '<a href="' . $script->url(array('module' => 'menu', 'action' => 'itemdelete', 'id' => $item->id), 'adminTask', TRUE) . '" title="Delete '. $script->escape($item->label) . '">Delete</a>',
+            );
+            $result[] = $itemArr;
+            doItems($script, $result, $item->getChildItems(), $depth+1);
+        }
+    }
+?>
+<h2><?= $this->escape($this->menu->title) ?></h2>
+
+<?php
+    $theadItems = array(array(
+        '<input type="checkbox"/>',
+		'Label',
+        'Visible',
+        'Expanded',
+        'Weight',
+        array('Actions', array('colspan' => 2))
+    )); 
+
+    $tbodyItems = array();
+    doItems($this, $tbodyItems, $this->items);
+    
+?>
+<?= $this->htmlTable($theadItems, $tbodyItems, NULL, FALSE, "headers: {0: {sorter: false}, 5: {sorter: false}}") ?>

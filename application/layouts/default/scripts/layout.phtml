@@ -1,0 +1,29 @@
+<?php
+$baseUrl = $this->baseUrl();
+$this->doctype('XHTML1_STRICT');
+$this->headMeta()->appendHttpEquiv('Content-Type', 'text/html; charset=utf-8');
+$this->headTitle()->setSeparator(' - ');
+$this->headTitle('Welcome to the default website');
+//$this->headLink()->appendStylesheet("$baseUrl/css/default.css", 'screen, projection');
+?>
+<?php echo $this->doctype() ?>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+
+<head>
+    <?= $this->headMeta() ?>
+    <?= $this->headTitle() ?>
+    <?= $this->headLink() ?>
+    <?= $this->headStyle() ?>
+    <?= $this->jQuery() // load this before headScript(), since some of those scripts may rely on jQuery! ?>
+    <?= $this->headScript() ?>
+</head>
+
+<body>
+	<div class="container">
+        <div id="main">
+            <?php echo $this->layout()->content ?>
+        </div>
+	</div>
+</body>
+
+</html>

@@ -1,0 +1,228 @@
+Node_Model_Page:
+  Page_1:
+    user_id: 1
+    title: 'Page Title'
+    body: 'Some body text goes here, woot!'
+    teaser: 'This is a teaser.'
+    published: true
+  Page_2:
+    user_id: 1
+    title: 'A Different Page'
+    body: 'Some body text goes here, but its different.'
+    teaser: 'This is another teaser.'
+    published: true
+
+Node_Model_Story:
+  Story_1:
+#    lang: en
+    user_id: 1
+    title: 'The Story Title'
+    body: 'Some body text goes here, woot!'
+    teaser: 'This is a teaser.'
+    published: true
+    Fields:
+      story_dateline: 'Toronto, ON, Canada'
+      story_date: '2010-03-01 22:47:04'
+
+
+Menu_Model_Item:
+  Item_Etc:
+    menu_id: 2
+    label: Etc.
+    controller: etc
+  Item_Etc_About:
+    Parent: Item_Etc
+    menu_id: 2
+    label: 'About This Site'
+    controller: etc
+    action: about
+  Item_Etc_Contact:
+    Parent: Item_Etc
+    menu_id: 2
+    label: 'Contact Me'
+    controller: etc
+    action: contact
+  Item_Etc_Contact_Sent:
+    Parent: Item_Etc_Contact
+    menu_id: 2
+    label: Sent
+    controller: etc
+    action: sent
+    visible: false
+  Item_Etc_Copyright:
+    Parent: Item_Etc
+    menu_id: 2
+    label: 'Copyright Statement'
+    controller: etc
+    action: copyright
+
+  Item_Photos:
+    menu_id: 2
+    label: Photography
+    controller: photos
+  Item_Photos_Set:
+    Parent: Item_Photos
+    menu_id: 2
+    label: Set
+    controller: photos
+    action: set
+    visible: false
+  Item_Photos_Set_Photo:
+    Parent: Item_Photos_Set
+    menu_id: 2
+    label: Photo
+    controller: photos
+    action: photo
+    visible: false
+
+  Item_Updates:
+    menu_id: 2
+    label: Updates
+    controller: updates
+  Item_Updates_Date:
+    Parent: Item_Updates
+    menu_id: 2
+    label: Date
+    controller: updates
+    action: date
+    visible: false
+  Item_Updates_Category:
+    Parent: Item_Updates
+    menu_id: 2
+    label: Category
+    controller: updates
+    action: category
+    visible: false
+
+Taxonomy_Model_Vocabulary:
+  Vocabulary_1:
+    name: 'Categories'
+    description: 'A selection of categories from which to choose from.'
+    help: 'Select a category.'
+    multiple: true
+    required: true
+  Vocabulary_2:
+    name: 'Color'
+    description: ''
+    help: 'Choose a color.'
+    required: true
+  Vocabulary_3:
+    name: 'Tags'
+    description: 'Some tags that describe the content.'
+    help: 'Enter a comma-seperated list of tags.'
+    tags: true
+    required: true
+
+Taxonomy_Model_VocabularyNodetype:
+  VocabularyNodetype_1:
+    Vocabulary: Vocabulary_1
+    nodetype_id: 1
+  VocabularyNodetype_2:
+    Vocabulary: Vocabulary_1
+    nodetype_id: 2
+  VocabularyNodetype_3:
+    Vocabulary: Vocabulary_2
+    nodetype_id: 1
+  VocabularyNodetype_4:
+    Vocabulary: Vocabulary_3
+    nodetype_id: 2
+
+Taxonomy_Model_Term:
+  Item_1:
+    name: 'Sports'
+    Vocabulary: Vocabulary_1
+  Item_2:
+    name: 'Entertainment'
+    Vocabulary: Vocabulary_1
+  Item_3:
+    name: 'News'
+    Vocabulary: Vocabulary_1
+  Item_4:
+    name: 'Weather'
+    Vocabulary: Vocabulary_1
+  Item_5:
+    name: 'Red'
+    Vocabulary: Vocabulary_2
+  Item_6:
+    name: 'Green'
+    Vocabulary: Vocabulary_2
+  Item_7:
+    name: 'Blue'
+    Vocabulary: Vocabulary_2
+  Item_8:
+    name: 'photography'
+    Vocabulary: Vocabulary_3
+  Item_9:
+    name: 'technology'
+    Vocabulary: Vocabulary_3
+  Item_10:
+    name: 'travel'
+    Vocabulary: Vocabulary_3
+
+Path_Model_TypeRoute:
+  TypeRoute_1:
+    nodetype_id: 2
+    route: 'story/:story_date-yyyy/:story_date-mm/:slug'
+  TypeRoute_2:
+    nodetype_id: 3
+    route: 'comment/:slug'
+
+
+Comment_Model_Comment:
+  Comment_1:
+    user_id: 1
+    title: 'My comment'
+    body: 'Comment body goes here.'
+    published: true
+    field_comment_node_id: 3
+  Comment_2:
+    user_id: 1
+    title: 'Second comment'
+    body: 'Second comment body goes here.'
+    published: true
+    field_comment_node_id: 3
+    Fields:
+      Parent: Comment_1
+  Comment_3:
+    user_id: 1
+    title: 'Another comment'
+    body: 'Third comment body goes here.'
+    published: true
+    field_comment_node_id: 3
+      
+#Menu_Model_Route:
+#  Route_Node_1:
+#    name: path_node_1
+#    route: node/1
+#    defaults:
+#      module: node
+#      controller: index
+#      action: view
+#      id: 1
+#  Route_Node_2:
+#    name: path_node_2
+#    route: node/2
+#    defaults:
+#      module: node
+#      controller: index
+#      action: view
+#      id: 2
+#  Route_Node_3:
+#    name: path_node_3
+#    route: node/3
+#    defaults:
+#      module: node
+#      controller: index
+#      action: view
+#      id: 3
+
+#Menu_Model_Item:
+#  Menu_Model_Item_1:
+#    menu_id: 1
+#    label: 'This is the page title.'
+#    module: node
+#    action: view
+#    params:
+#      slug: this-is-the-page-title
+#    route: nodeViewSlug
+    

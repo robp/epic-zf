@@ -1,0 +1,52 @@
+<?php
+$this->jQuery()->enable();
+$this->jQuery()->onLoadCaptureStart();
+?>
+/**
+ * Primary nav menu.
+ */
+if ($('#primary-links .navigation li.active').html()) {
+	// add the Home link to the top of the nav menu
+	$('#primary-links .navigation').prepend('<li>' + $('#primary-links .menu-first').html() + '</li>');
+	// change the Home link to the active menu item
+	$('#primary-links .menu-first').html($('#primary-links .navigation li.active').html());
+	// remove the active menu item
+	$('#primary-links .navigation li.active').remove();
+}
+
+$('.dropdown-menu').hover( 
+	function() {
+		$('.menu-first', this).addClass('slide-down');
+		$('.navigation', this).slideDown(100);
+	},
+	function() {
+		obj = this;
+		$('.navigation', this).slideUp(100, function() {
+			$('.menu-first', obj).removeClass('slide-down');
+		});
+	}
+);
+
+// Make some lists collapsible.
+$('ul.collapsible li > ul').parent().addClass('collapsible');
+$('ul.collapsible li.collapsible:not(.active)').addClass('collapsed');
+$('ul.collapsible li.collapsible:not(.collapsed)').prepend('<span class="toggle">&#9660</span>'); 
+$('ul.collapsible li.collapsible.collapsed').prepend('<span class="toggle">&#9658</span>');
+
+$('li.collapsed > ul').hide();
+
+$('li.collapsible > .toggle').click( function() {
+	if ($(this).parent().hasClass('collapsed')) {
+		$(this).parent().removeClass('collapsed');
+		$('> ul', $(this).parent()).show();
+		$(this).html('&#9660');
+	}
+	else {
+		$(this).parent().addClass('collapsed');
+		$('> ul', $(this).parent()).hide();
+		$(this).html('&#9658');
+	}
+});
+
+<?php
+$this->jQuery()->onLoadCaptureEnd();

@@ -1,0 +1,7 @@
+#
+# Apache/PHP/EPIC settings:
+#
+
+# Allow access
+Order allow,deny
+Allow from all

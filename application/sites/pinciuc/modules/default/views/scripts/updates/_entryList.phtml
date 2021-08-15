@@ -1,0 +1,6 @@
+<div class="entries">
+<?
+$this->partialLoop()->setObjectKey('entry');
+echo $this->partialLoop('updates/_entry.phtml', $this->entries);
+?>
+</div>

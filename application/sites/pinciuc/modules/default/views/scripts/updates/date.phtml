@@ -1,0 +1,17 @@
+<?
+if (isset($this->dateText)) {
+    $title = $this->dateText;
+} elseif (count($this->entries) == 1) {
+    $title = $this->entries[0]->title;
+}
+//$this->headTitle('Updates');
+$active = $this->navigation()->findActive($this->navigation()->getContainer());
+$active['page']->label = $title;
+?>
+<?= $this->partial('updates/_layout.phtml', array(
+	'messages' => $this->messages,
+	'page' => $this->page,
+    'pages' => $this->pages,
+    'entries' => $this->entries,
+)) 
+?>

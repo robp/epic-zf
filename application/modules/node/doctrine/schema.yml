@@ -1,0 +1,133 @@
+Node_Model_Node:
+  tableName: node
+  columns:
+    user_id: integer
+    type: string(40)
+    title: string(255)
+    body: clob
+    teaser: clob
+    published:
+      type: boolean
+      default: false
+    sticky:
+      type: boolean
+      default: false
+  relations:
+    User:
+      class: User_Model_User
+      local: user_id
+      foreign: id
+      foreignAlias: Nodes
+    Terms:
+      class: Taxonomy_Model_Term
+      local: node_id
+      foreign: term_id
+      refClass: Taxonomy_Model_NodeTerm
+    Type:
+      class: Node_Model_Type
+      local: type
+      foreign: name
+      foreignAlias: Nodes
+      onDelete: CASCADE
+#    Type:
+#      class: Node_Model_Type
+#      local: type_id
+#      foreign: id
+#      foreignAlias: Nodes
+  actAs:
+#    I18n:
+#      fields: [title, body, teaser]
+    Timestampable:
+      onInsert: false
+    Versionable:
+      auditLog: true
+    Searchable:
+      fields: [title, body, teaser]
+    Sluggable:
+      fields: [title]
+      canUpdate: true
+
+Node_Model_Node_Fields:
+  columns:
+    node_id:
+      type: integer
+      notnull: true
+#  relations:
+#    Node:
+#      type: one
+#      foreignType: one
+#      class: Node_Model_Node
+#      local: node_id
+#      foreign: id
+#      foreignAlias: Fields
+#      onDelete: CASCADE
+
+Node_Model_Type:
+  tableName: nodetype
+  columns:
+    name:
+      type: string(40)
+      notnull: true
+      unique: true
+    class: string(80)
+    title: string(80)
+    hasTitle:
+      type: boolean
+      default: true
+    titleLabel:
+      type: string(80)
+      default: Title
+    hasBody:
+      type: boolean
+      default: true
+    bodyLabel:
+      type: string(80)
+      default: Body
+    description: string(255)
+  relations:
+#    Nodes:
+#      type: many
+#      class: Node_Model_Node
+#      local: name
+#      foreign: type
+#      foreignAlias: Type
+    Vocabularies:
+      class: Taxonomy_Model_Vocabulary
+      local: nodetype_id
+      foreign: vocabulary_id
+      refClass: Taxonomy_Model_VocabularyNodetype
+
+Node_Model_Page:
+  inheritance:
+    extends: Node_Model_Node
+    type: column_aggregation
+    keyField: type
+    keyValue: page
+
+Node_Model_Story:
+  inheritance:
+    extends: Node_Model_Node
+    type: column_aggregation
+    keyField: type
+    keyValue: story
+
+Node_Model_Story_Fields:
+  inheritance:
+    extends: Node_Model_Node_Fields
+    type: concrete
+  columns:
+    story_dateline: string(255)
+    story_date: timestamp
+  relations:
+    Node:
+      type: one
+      foreignType: one
+      class: Node_Model_Story
+      local: node_id
+      foreign: id
+      foreignAlias: Fields
+      onDelete: CASCADE
+#  actAs:
+#    I18n:
+#      fields: [title, body, teaser, story_dateline]
+

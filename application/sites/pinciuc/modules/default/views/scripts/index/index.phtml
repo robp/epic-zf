@@ -1,0 +1,41 @@
+<? 
+$this->headLink()->headLink(array('rel' => 'alternate', 'type' => 'application/rss+xml', 'href' => 'http://feeds.feedburner.com/the-conduit'));
+$photoSize = 'Medium';
+?>
+<p class="welcome">Welcome to the website of Rob Pinciuc, web developer and amateur photographer.</p>
+
+<h2><a href="<?= $this->url(array('controller' => 'photos'), NULL, TRUE) ?>">Photography</a> - Featured Images</h2>
+
+<div id="homePhotos">
+	<div class="col odd first">
+		<? $url = $this->url(array('controller' => 'photos', 'action' => 'photo', 'set' => $this->cleanUrl($this->set1->title), 'title' => $this->cleanUrl($this->photo1->title), 'page' => NULL));	?>
+        <div class="fullsize">
+        	<a class="noborder" href="<?= $url ?>"><img class="fullsize" src="<?= $this->escape($this->photo1->getSizes($photoSize)->source) ?>" alt="<?= $this->escape($this->photo1->title) ?>"/></a>
+        </div>
+        
+        <div class="photoCard">
+          <? if (strlen($this->photo1->title)): ?><span class="title"><?= $this->escape($this->photo1->title) ?></span><br/><? endif ?>
+          <? if (strlen($this->photo1->description)): ?><span class="description"><?= nl2br($this->photo1->description) ?></span><br/><? endif ?>
+          <? if (strlen($this->photo1->dateTaken)): ?><span class="date"><?= $this->displayDate($this->photo1->dateTaken, 'MMMM yyyy') ?></span><? endif ?>
+        </div>
+	</div>        
+    
+    <div class="col even last">
+		<? $url = $this->url(array('controller' => 'photos', 'action' => 'photo', 'set' => $this->cleanUrl($this->set2->title), 'title' => $this->cleanUrl($this->photo2->title), 'page' => NULL));	?>
+        <div class="fullsize">
+        	<a class="noborder" href="<?= $url ?>"><img class="fullsize" src="<?= $this->escape($this->photo2->getSizes($photoSize)->source) ?>" alt="<?= $this->escape($this->photo2->title) ?>"/></a>
+        </div>
+        
+        <div class="photoCard">
+          <? if (strlen($this->photo2->title)): ?><span class="title"><?= $this->escape($this->photo2->title) ?></span><br/><? endif ?>
+          <? if (strlen($this->photo2->description)): ?><span class="description"><?= nl2br($this->photo2->description) ?></span><br/><? endif ?>
+          <? if (strlen($this->photo2->dateTaken)): ?><span class="date"><?= $this->displayDate($this->photo2->dateTaken, 'MMMM yyyy') ?></span><? endif ?>
+        </div>
+    </div>
+</div>
+
+<h2><a href="<?= $this->url(array('controller' => 'updates'), NULL, TRUE) ?>">Updates</a> - Latest Posts</h2>
+
+<div id="homeEntries">
+    <?= $this->partial('index/_entryList.phtml', array('entries' => $this->entries)) ?>
+</div>

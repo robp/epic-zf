@@ -1,0 +1,7 @@
+<p>Which type of node do you want to create?</p>
+
+<ul>
+<? foreach ($this->nodeTypes as $type): ?>
+<li><a href="<?= $this->url(array('type' => $type->name), 'adminTask') ?>" title="Create <?= $this->escape($type->title) ?>"><?= $type->title ?></a></li>
+<? endforeach ?>
+</ul>

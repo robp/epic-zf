@@ -1,0 +1,6 @@
+<div class="nodes">
+<?
+$this->partialLoop()->setObjectKey('node');
+echo $this->partialLoop('index/_teaser.phtml', $this->nodes);
+?>
+</div>

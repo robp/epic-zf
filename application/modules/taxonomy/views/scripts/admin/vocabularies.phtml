@@ -1,0 +1,30 @@
+<?php
+    $theadItems = array(array(
+        '<input type="checkbox"/>',
+		'Name',
+        'Weight',
+        'Type',
+        'Terms',
+        array('Actions', array('colspan' => 3))
+    )); 
+
+    $tbodyItems = array();
+    foreach ($this->vocabularies as $vocabulary) {
+        $types = array();
+        foreach ($vocabulary->Types as $type) {
+            $types[] = $type->title;
+        }
+        
+        $tbodyItems[] = array(
+            '<input type="checkbox"/>',
+            $this->escape($vocabulary->name),
+            $this->escape($vocabulary->weight),
+            $this->escape(implode(', ', $types)),
+            count($vocabulary->Terms),
+            '<a href="' . $this->url(array('action' => 'vocabularyedit', 'id' => $vocabulary->id), 'adminTask') . '" title="Edit ' . $this->escape($vocabulary->name) . '">Edit</a>',
+            '<a href="' . $this->url(array('action' => 'terms', 'id' => $vocabulary->id), 'adminTask') . '" title="List Terms">List Terms</a>',
+            '<a href="' . $this->url(array('action' => 'termcreate', 'id' => $vocabulary->id), 'adminTask') . '" title="Add Terms">Add Terms</a>',
+        );
+    }
+?>
+<?= $this->htmlTable($theadItems, $tbodyItems, NULL, FALSE, "headers: {0: {sorter: false}, 5: {sorter: false}}") ?>

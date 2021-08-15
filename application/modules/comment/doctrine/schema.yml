@@ -1,0 +1,40 @@
+Comment_Model_Comment:
+  inheritance:
+    extends: Node_Model_Node
+    type: column_aggregation
+    keyField: type
+    keyValue: comment
+  columns:
+    field_comment_node_id: integer
+  relations:
+    CommentNode:
+      class: Node_Model_Node
+      local: field_comment_node_id
+      foreign: id
+      foreignAlias: Comments
+      onDelete: CASCADE
+
+Comment_Model_Comment_Fields:
+  inheritance:
+    extends: Node_Model_Node_Fields
+    type: concrete
+  columns:
+    parent_id: integer
+    name: string(80)
+    email: string(255)
+    url: string(255)
+  relations:
+    Node:
+      type: one
+      foreignType: one
+      class: Comment_Model_Comment
+      local: node_id
+      foreign: id
+      foreignAlias: Fields
+      onDelete: CASCADE
+    Parent:
+      class: Comment_Model_Comment
+      local: parent_id
+      foreign: id
+      foreignAlias: Comments
+      onDelete: CASCADE

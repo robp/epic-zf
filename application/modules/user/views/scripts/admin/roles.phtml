@@ -1,0 +1,31 @@
+<?php 
+    function doItems($script, array &$result, $items, $depth = 0)
+    {
+        foreach ($items as $role) {
+            $roleArr = array(
+                '<input type="checkbox"/>',
+                array(
+                    ($depth ? '&lfloor; ' : '') . $script->escape($role->name), 
+                    array('style' => 'text-indent: ' . ($depth*2) . 'em;')
+                ),
+                $script->escape($role->description),
+                '<a href="' . $script->url(array('action' => 'roleedit', 'id' => $role->id), 'adminTask') . '" title="Edit ' . $script->escape($role->name) . '">Edit</a>',
+                '<a href="' . $script->url(array('action' => 'privileges', 'id' => $role->id), 'adminTask') . '" title="Edit Privileges">Privileges</a>',
+            );
+            $result[] = $roleArr;
+            doItems($script, $result, $role->Children, $depth+1);
+        }
+    }
+    
+    $theadItems = array(array(
+        '<input type="checkbox"/>',
+		'Name',
+        'Description',
+        array('Actions', array('colspan' => 2))
+    )); 
+    
+    $tbodyItems = array();
+    doItems($this, $tbodyItems, $this->roles);
+    
+?>
+<?= $this->htmlTable($theadItems, $tbodyItems, NULL, FALSE, "headers: {0: {sorter: false}, 3: {sorter: false}}") ?>

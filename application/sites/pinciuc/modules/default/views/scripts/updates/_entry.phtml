@@ -1,0 +1,20 @@
+<? 
+$classes = array('entry');
+if ($this->partialCounter == 1) {
+    $classes[] = 'first';
+}
+$classes[] = $this->partialCounter % 2 == 1 ? 'odd' : 'even';
+?>
+<div class="<?= join(' ', $classes) ?>">
+    <h2><a href="<?= $this->bloggerPermalink($this->entry) ?>" title="Permalink to <?= $this->escape($this->entry->title) ?>"><?= $this->escape($this->entry->title) ?></a></h2>
+    
+    <p><?= str_replace('http://www.blogger.com/', 'http://www.pinciuc.com/', $this->entry->content) ?></p>
+    
+    <p class="entryFooter">
+        &rarr; Posted by <?= $this->bloggerAuthorLinks(', ', $this->entry->authors) ?> 
+        on <?= $this->entry->published->get(Zend_Date::DATE_LONG) ?> 
+        at <?= $this->entry->published->get('h:mma') ?> 
+        in <?= $this->bloggerCategoryLinks(', ', $this->entry->categories) ?>. 
+        <a href="<?= $this->entry->getLink('replies', 'text/html')->href ?>" title="View comments"><?= $this->entry->getLink('replies', 'text/html')->title ?></a>.
+    </p>
+</div>

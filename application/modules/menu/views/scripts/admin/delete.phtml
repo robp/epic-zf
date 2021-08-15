@@ -1,0 +1,8 @@
+<? $this->layout()->title = 'Delete ' . $this->menu->title ?>
+<p>Are you sure you want to delete '<?= $this->menu->title ?>'?</p>
+
+<? if (count($this->menu->Items)): ?>
+<p><strong>Warning:</strong> This menu currently contains <?= count($this->menu->Items) ?> item(s). They will also be deleted!</p>
+<? endif ?>
+
+<?= $this->form ?>

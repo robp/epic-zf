@@ -1,0 +1,14 @@
+<? 
+$classes = array('node', 'nodetype-comment');
+if ($this->partialCounter == 1) {
+    $classes[] = 'first';
+}
+$classes[] = 'row-' . $this->partialCounter;
+$classes[] = $this->partialCounter % 2 == 1 ? 'odd' : 'even';
+?>
+<div id="comment-<?= $this->node->id ?>" class="<?= join(' ', $classes) ?>">
+	<h2 class="node-title"><a href="/<?= $this->node->CommentNode->getUrl() ?>#comment-<?= $this->node->id ?>"><?= $this->escape($this->node->title) ?></a></h2>
+	<div class="node-body"><?= $this->escape($this->node->body) ?></div>
+    <?= $this->partial('index/_comment-footer.phtml', 'comment', array('node' => $this->node)); ?>
+    <?= $this->partial('index/_comment-list.phtml', 'comment', array('nodes' => Comment_Model_Comment::getChildItems($this->node->CommentNode->id, $this->node->id)));//, 'depth' => $this->depth+1)) ?>
+</div>

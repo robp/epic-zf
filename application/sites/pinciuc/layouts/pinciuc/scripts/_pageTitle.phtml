@@ -1,0 +1,9 @@
+<?
+$page = array_pop($this->pages);
+$parent = array_pop($this->pages);
+$title = $this->layout()->title;
+if ($parent) {
+    $title = '<a id="title-' . $page->id .'" class="' . $page->class . '" title="Up to ' . $parent->label . '" href="' . $parent->getHref() . '">&uarr; ' . $title . '</a>';
+}
+?>
+<h1 class="title"><?= $title ?></h1>

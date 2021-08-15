@@ -1,0 +1,25 @@
+<?php
+    $theadItems = array(array(
+        '<input type="checkbox"/>',
+		'Username',
+        'Roles',
+        'Status',
+        array('Actions', array('colspan' => 1))
+    )); 
+
+    $tbodyItems = array();
+    foreach ($this->users as $user) {
+        $roles = array();
+        foreach ($user->Roles as $role) {
+            $roles[] = $role->name;
+        }
+        $tbodyItems[] = array(
+            '<input type="checkbox"/>',
+            '<a href="/' . $user->getUrl() . '">' . $this->escape($user->username) . '</a>',
+            $this->escape(implode(', ', $roles)),
+            $this->escape(User_Model_User::getStatusName($user->status)),
+            '<a href="' . $this->url(array('action' => 'edit', 'id' => $user->id), 'adminTask') . '" title="Edit ' . $this->escape($user->username) . '">Edit</a>',
+        );
+    }
+?>
+<?= $this->htmlTable($theadItems, $tbodyItems, NULL, FALSE, "headers: {0: {sorter: false}, 4: {sorter: false}}") ?>

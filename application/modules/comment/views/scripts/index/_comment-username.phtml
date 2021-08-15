@@ -1,0 +1,11 @@
+<?php
+$username = 'Anonymous';
+
+if (!empty($this->node->User->id)) {
+    $username = $this->partial('index/_username.phtml', 'user', array('username' => $this->node->User->username));
+}
+elseif (!empty($this->node->Fields->name)) {
+    $username = $this->node->Fields->name;
+}
+
+echo $username;

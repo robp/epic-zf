@@ -1,0 +1,9 @@
+<? if (count($this->messages)): ?>
+<div class="messages">
+    <ul class="messages">
+    <? foreach ($this->messages as $message): ?>
+    <li class="<?= $message->type ?>"><?= $message->text ?></li>
+    <? endforeach; ?>
+    </ul>
+</div>
+<? endif; ?>

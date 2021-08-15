@@ -1,0 +1,5 @@
+<div class="thumbnail">
+  <a href="<?= $this->url ?>">
+    <img class="thumbnail" width="<?= $this->photo->getSizes($this->photoSize)->width ?>" height="<?= $this->photo->getSizes($this->photoSize)->height ?>" src="<?= $this->escape($this->photo->getSizes($this->photoSize)->source) ?>" alt="<?= $this->escape($this->photo->title) ?>"/>
+  </a>
+</div>

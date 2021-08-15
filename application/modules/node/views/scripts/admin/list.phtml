@@ -1,0 +1,23 @@
+<?php
+    $theadItems = array(array(
+        '<input type="checkbox"/>',
+		'Title',
+        'Type',
+        'Author',
+        'Published',
+        array('Actions', array('colspan' => 1))
+    )); 
+
+    $tbodyItems = array();
+    foreach ($this->nodes as $node) {
+        $tbodyItems[] = array(
+            '<input type="checkbox"/>',
+            '<a href="/' . $node->getUrl() . '">' . $this->escape($node->title) . '</a>',
+            $this->escape($node->Type->title),
+            '<a href="/' . $node->User->getUrl() . '">' . $this->escape($node->User->username) . '</a>',
+            $this->yesNo($node->published),
+            '<a href="' . $this->url(array('action' => 'edit', 'id' => $node->id), 'adminTask') . '" title="Edit ' . $this->escape($node->title) . '">Edit</a>',
+        );
+    }
+?>
+<?= $this->htmlTable($theadItems, $tbodyItems, NULL, FALSE, "headers: {0: {sorter: false}, 5: {sorter: false}}") ?>

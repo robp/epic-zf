@@ -1,0 +1,25 @@
+Node_Model_Type:
+  Node_Model_Type_Comment:
+    name: comment
+    title: Comment
+    class: Comment_Model_Comment
+    description: 'A comment on a node.'
+    titleLabel: Subject
+
+User_Model_Resource:
+  Resource_1:
+    module: comment
+    resource: 'node type comment'
+#    parent_id: 9
+    Privileges:
+      Privilege_1_1:
+        privilege: create
+      Privilege_2_2:
+        privilege: 'edit any'
+      Privilege_3_3:
+        privilege: 'edit own'
+      Privilege_4_4:
+        privilege: 'delete any'
+      Privilege_5_5:
+        privilege: 'delete own'
+    

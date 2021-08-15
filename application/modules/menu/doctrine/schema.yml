@@ -1,0 +1,78 @@
+Menu_Model_Menu:
+  tableName: menu
+  columns:
+    name:
+      type: string(40)
+      unique: true
+      notnull: true
+    title: string(80)
+    description: clob
+
+Menu_Model_Item:
+  tableName: menuitem
+  columns:
+    parent_id: integer
+    menu_id:
+      type: integer
+      notnull: true
+    label: string(255)
+    description: clob
+    weight:
+      name: weight as order
+      type: integer
+      default: 0
+    visible:
+      type: boolean
+      default: true
+    expanded:
+      type: boolean
+      default: false
+    resource: string(255)
+    privilege: string(255)
+    type:
+      type: string(20)
+      default: 'mvc'
+    uri: string(255)
+    action:
+      type: string(40)
+      default: 'index'
+    controller:
+      type: string(40)
+      default: 'index'
+    module:
+      type: string(40)
+      default: 'default'
+    params: array
+    route:
+      type: string(40)
+      default: 'default'
+    reset_params:
+      type: boolean
+      default: true
+  relations:
+    Menu:
+      class: Menu_Model_Menu
+      local: menu_id
+      foreign: id
+      foreignAlias: Items
+      onDelete: CASCADE
+    Parent:
+      class: Menu_Model_Item
+      local: parent_id
+      foreign: id
+      foreignAlias: Items
+      onDelete: CASCADE
+
+Menu_Model_Route:
+  tableName: route
+  columns:
+    name:
+      type: string(80)
+      unique: true
+      notnull: true
+    route:
+      type: string(255)
+      unique: true
+      notnull: true
+    defaults: array
+    reqs: array

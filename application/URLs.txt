@@ -1,0 +1,7 @@
+user = view own profile, or redirect to user/login
+user/login = login
+user/logout = logout
+user/register = register
+user/edit = edit own profile
+users/:username = view a user profile
+admin/user/edit/:username = edit a user

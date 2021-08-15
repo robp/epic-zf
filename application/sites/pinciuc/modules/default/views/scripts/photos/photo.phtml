@@ -1,0 +1,51 @@
+<? 
+//$this->headTitle($this->photo->title);
+//$this->headTitle($this->set->title);
+//$this->headTitle('Photography');
+$photoSize = 'Medium';
+?>
+<?
+$urlParams = array('action' => 'set', 'title' => $this->cleanUrl($this->set->title), 'set' => NULL);
+if ($this->setPage > 1) {
+    $urlParams['page'] = $this->setPage;
+}
+$url = $this->url($urlParams);
+?>
+<!--<h2><a href="<?= $url ?>" title="Up to <?= $this->escape($this->set->title) ?>">&uarr; <?= $this->escape($this->set->title) ?></a></h2>-->
+
+<?
+    if ($this->pages > 1) {
+        $prevUrl = NULL;
+        $nextUrl = NULL;
+        if ($this->page > 1) {
+            $prevUrl = $this->url(array('title' => $this->cleanUrl($this->prevPhoto->title)));
+        }
+        if ($this->page < $this->pages) {
+            $nextUrl = $this->url(array('title' => $this->cleanUrl($this->nextPhoto->title)));
+        }
+        echo $this->partial('_pager.phtml', array('page' => $this->page, 'pages' => $this->pages, 'prevUrl' => $prevUrl, 'nextUrl' => $nextUrl));
+    }
+?>
+
+<div class="fullsize">
+	<img class="fullsize" width="<?= $this->photo->getSizes($photoSize)->width ?>" height="<?= $this->photo->getSizes($photoSize)->height ?>" src="<?= $this->escape($this->photo->getSizes($photoSize)->source) ?>" alt="<?= $this->escape($this->photo->title) ?>"/>
+</div>
+
+<div class="photoCard">
+  <? if (strlen($this->photo->title)): ?><span class="title"><?= $this->escape($this->photo->title) ?></span><br/><? endif; ?>
+  <? if (strlen($this->photo->description)): ?><span class="description"><?= nl2br($this->photo->description) ?></span><br/><? endif; ?>
+  <? if (strlen($this->photo->dateTaken)): ?><span class="date"><?= $this->displayDate($this->photo->dateTaken, 'MMMM yyyy') ?></span><? endif; ?>
+</div>
+
+<? if (count($this->photo->tags)): ?>
+<div class="photoTags">
+  Tags:
+  <?
+  $tags = array();
+  foreach ($this->photo->tags as $tag) {
+      $tags[] = $tag->raw;
+  }
+  echo $this->htmlList($tags, false, array('class' => 'tags')); 
+  ?>
+</div>
+<? endif; ?>

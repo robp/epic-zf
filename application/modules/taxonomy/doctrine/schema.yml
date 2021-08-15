@@ -1,0 +1,94 @@
+Taxonomy_Model_Vocabulary:
+  tableName: vocabulary
+  columns:
+    name:
+      type: string(80)
+      notnull: true
+      unique: true
+    description: clob
+    help: string(255)
+    tags: bool
+    multiple: bool
+    required: bool
+    weight:
+      type: integer
+      notnull: true
+      default: 0
+  relations:
+    Terms:
+      type: many
+      class: Taxonomy_Model_Term
+      local: id
+      foreign: vocabulary_id
+    Types:
+      class: Node_Model_Type
+      local: vocabulary_id
+      foreign: nodetype_id
+      refClass: Taxonomy_Model_VocabularyNodetype
+
+Taxonomy_Model_VocabularyNodetype:
+  tableName: vocabulary_nodetype
+  columns:
+    vocabulary_id:
+      type: integer
+      primary: true
+    nodetype_id:
+      type: integer
+      primary: true
+  relations:
+    Vocabulary:
+      class: Taxonomy_Model_Vocabulary
+      local: vocabulary_id
+      foreign: id
+      onDelete: CASCADE
+    Type:
+      class: Node_Model_Type
+      local: nodetype_id
+      foreign: id
+      onDelete: CASCADE
+
+Taxonomy_Model_Term:
+  tableName: term
+  columns:
+    vocabulary_id: integer
+    name:
+      type: string(80)
+      notnull: true
+      unique: true
+    description: clob
+    weight:
+      type: integer
+      notnull: true
+      default: 0
+  relations:
+    Vocabulary:
+      class: Taxonomy_Model_Vocabulary
+      local: vocabulary_id
+      foreign: id
+      onDelete: CASCADE
+    Nodes:
+      class: Node_Model_Node
+      local: term_id
+      foreign: node_id
+      refClass: Taxonomy_Model_NodeTerm
+
+Taxonomy_Model_NodeTerm:
+  tableName: node_term
+  columns:
+    node_id:
+      type: integer
+      primary: true
+    term_id:
+      type: integer
+      primary: true
+  relations:
+    Node:
+      class: Node_Model_Node
+      local: node_id
+      foreign: id
+      onDelete: CASCADE
+    Term:
+      class: Taxonomy_Model_Term
+      local: term_id
+      foreign: id
+      onDelete: CASCADE

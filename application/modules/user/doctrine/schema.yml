@@ -1,0 +1,188 @@
+User_Model_User:
+  tableName: user
+  columns:
+    username:
+      type: string(40)
+      unique: true
+      notnull: true
+    password: string(32)
+    email_address:
+      type: string(80)
+      unique: true
+    status:
+      type: integer
+      notnull: true
+    confirm_code: string(32)
+  relations:
+    Roles:
+      class: User_Model_Role
+      local: user_id
+      foreign: role_id
+      refClass: User_Model_UserRole
+  actAs:
+    Timestampable:
+      onInsert: false
+    Sluggable:
+      fields: [username]
+      canUpdate: true
+
+User_Model_Role:
+  tableName: role
+  columns:
+    name:
+      type: string(40)
+      unique: true
+      notnull: true
+    description: string(255)
+    selectable:
+      type: boolean
+      default: true
+  relations:
+    Parents:
+      class: User_Model_Role
+      local: child_id
+      foreign: parent_id
+      foreignAlias: Children
+      refClass: User_Model_RoleParent
+      refClassRelationAlias: ParentsAlias
+    Users:
+      class: User_Model_User
+      local: role_id
+      foreign: user_id
+      refClass: User_Model_UserRole
+    Privileges:
+      class: User_Model_Privilege
+      local: role_id
+      foreign: privilege_id
+      refClass: User_Model_RolePrivilege
+
+User_Model_RoleParent:
+  tableName: role_parent
+  columns:
+    child_id:
+      type: integer
+      primary: true
+    parent_id:
+      type: integer
+      primary: true
+  relations:
+    Child:
+      class: User_Model_Role
+      local: child_id
+      foreign: id
+      foreignAlias: RoleParentParents
+      onDelete: CASCADE
+    Parent:
+      class: User_Model_Role
+      local: parent_id
+      foreign: id
+      foreignAlias: RoleParentChildren
+      onDelete: CASCADE
+      
+User_Model_UserRole:
+  tableName: user_role
+  columns:
+    user_id:
+      type: integer
+      primary: true
+    role_id:
+      type: integer
+      primary: true
+  relations:
+    User:
+      class: User_Model_User
+      local: user_id
+      foreign: id
+      onDelete: CASCADE
+    Role:
+      class: User_Model_Role
+      local: role_id
+      foreign: id
+      onDelete: CASCADE
+
+
+User_Model_Resource:
+  tableName: resource
+  columns:
+    parent_id: integer
+    module:
+      type: string(40)
+      notnull: true
+      default: 'default'
+    resource:
+      type: string(40)
+      notnull: true
+    rank:
+      name: rank as order
+      type: integer
+    description: string(255)
+  relations:
+    Parent:
+      class: User_Model_Resource
+      local: parent_id
+      foreign: id
+      foreignAlias: Children
+      onDelete: CASCADE
+
+User_Model_Privilege:
+  tableName: privilege
+  columns:
+    resource_id:
+      type: integer
+      notnull: true
+    privilege:
+      type: string(40)
+      notnull: true
+    rank:
+      name: rank as order
+      type: integer
+    description: string(255)
+  relations:
+    Resource:
+      class: User_Model_Resource
+      local: resource_id
+      foreign: id
+      foreignAlias: Privileges
+      onDelete: CASCADE
+    Roles:
+      class: User_Model_Role
+      local: privilege_id
+      foreign: role_id
+      refClass: User_Model_RolePrivilege
+
+User_Model_RolePrivilege:
+  tableName: role_privilege
+  columns:
+    role_id:
+      type: integer
+      primary: true
+    privilege_id:
+      type: integer
+      primary: true
+    allowed:
+      type: boolean
+      default: true
+  relations:
+    Role:
+      class: User_Model_Role
+      local: role_id
+      foreign: id
+      foreignAlias: RolePrivileges
+      onDelete: CASCADE
+    Privilege:
+      class: User_Model_Privilege
+      local: privilege_id
+      foreign: id
+      onDelete: CASCADE
+
+
+# This might be used for a Doctrine-based session save handler.
+#User_Model_Session:
+#  tableName: session
+#  columns:
+#    id:
+#      type: string(32)
+#      primary: true
+#    modified: integer
+#    lifetime: integer
+#   data: clob

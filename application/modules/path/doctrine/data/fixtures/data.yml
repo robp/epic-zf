@@ -1,0 +1,53 @@
+User_Model_Resource:
+  Resource_1:
+    module: path
+    resource: 'url aliases'
+    Privileges:
+      Privilege_1_1:
+        privilege: administer
+      Privilege_1_2:
+        privilege: create
+  Resource_2:
+    module: path
+    resource: 'node type aliases'
+    Privileges:
+      Privilege_2_1:
+        privilege: administer
+
+#User_Model_RolePermission:
+#  RolePermission_1:
+#    role_id: 3
+#    User_Model_Permission: Permission_1
+#  RolePermission_2:
+#    role_id: 3
+#    User_Model_Permission: Permission_2
+#  RolePermission_3:
+#    role_id: 3
+#    User_Model_Permission: Permission_3
+
+
+#Menu_Model_Route:
+#  Menu_Model_Route_Page:
+#    name: path_auto_page
+#    route: :slug
+#    defaults:
+#      module: node
+#      controller: index
+#      action: view
+#  Menu_Model_Route_Story:
+#    name: path_auto_story
+#    route: story/:slug
+#    defaults:
+#      module: node
+#      controller: index
+#      action: view
+
+#Path_Model_TypeRoute:
+#  Item_1:
+#    Type: Node_Model_Type_Page
+#    Route: Menu_Model_Route_Page 
+#  Item_2:
+#    Type: Node_Model_Type_Story
+#    Route: Menu_Model_Route_Story 
+    
+    

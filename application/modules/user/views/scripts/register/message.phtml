@@ -1,0 +1,13 @@
+Thank you for registering on www.pinciuc.com!
+
+This email has been sent to verify your email address. When you click on the link below, your account will be activated:
+
+<?php echo $this->serverUrl() ?><?php echo $this->url(array('action' => 'confirm', 'controller' => 'register', 'module' => 'user', 'code' => $this->escape($this->confirm_code))) ?>
+
+
+If you do not click on this link within 30 days, your account will be deleted.
+
+Cheers!
+
+Rob Pinciuc
+www.pinciuc.com

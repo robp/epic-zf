@@ -1,0 +1,104 @@
+User_Model_Resource:
+  Resource_1:
+    module: taxonomy
+    resource: vocabularies
+    Privileges:
+      Privilege_1_1:
+        privilege: administer
+
+Menu_Model_Item:
+  Item_1:
+    menu_id: 1
+    parent_id: 1
+    label: 'Taxonomy'
+    module: taxonomy
+    controller: admin
+    route: adminTask
+    resource: 'taxonomy:vocabularies'
+    privilege: administer
+  Item_Vocabularies:
+    menu_id: 1
+    Parent: Item_1
+    label: 'Vocabularies'
+    module: taxonomy
+    controller: admin
+    action: vocabularies
+    route: adminTask
+    resource: 'taxonomy:vocabularies'
+    privilege: administer
+  Item_Create_Vocabulary:
+    menu_id: 1
+    Parent: Item_1
+    label: 'Create Vocabulary'
+    module: taxonomy
+    controller: admin
+    action: vocabularycreate
+    route: adminTask
+    resource: 'taxonomy:vocabularies'
+    privilege: administer
+  Item_Edit_Vocabulary:
+    menu_id: 1
+    Parent: Item_1
+    label: 'Edit Vocabulary'
+    module: taxonomy
+    controller: admin
+    action: vocabularyedit
+    route: adminTask
+    visible: false
+    resource: 'taxonomy:vocabularies'
+    privilege: administer
+  Item_Delete_Vocabulary:
+    menu_id: 1
+    Parent: Item_1
+    label: 'Delete Vocabulary'
+    module: taxonomy
+    controller: admin
+    action: vocabularydelete
+    route: adminTask
+    visible: false
+    resource: 'taxonomy:vocabularies'
+    privilege: administer
+  Item_Terms:
+    menu_id: 1
+    Parent: Item_Vocabularies
+    label: 'List Terms'
+    module: taxonomy
+    controller: admin
+    action: terms
+    route: adminTask
+    visible: false
+    resource: 'taxonomy:vocabularies'
+    privilege: administer
+  Item_Create_Term:
+    menu_id: 1
+    Parent: Item_Vocabularies
+    label: 'Add Term'
+    module: taxonomy
+    controller: admin
+    action: termcreate
+    route: adminTask
+    visible: false
+    resource: 'taxonomy:vocabularies'
+    privilege: administer
+  Item_Edit_Term:
+    menu_id: 1
+    Parent: Item_Vocabularies
+    label: 'Edit Term'
+    module: taxonomy
+    controller: admin
+    action: termedit
+    route: adminTask
+    visible: false
+    resource: 'taxonomy:vocabularies'
+    privilege: administer
+  Item_Delete_Term:
+    menu_id: 1
+    Parent: Item_Vocabularies
+    label: 'Delete Term'
+    module: taxonomy
+    controller: admin
+    action: termdelete
+    route: adminTask
+    visible: false
+    resource: 'taxonomy:vocabularies'
+    privilege: administer

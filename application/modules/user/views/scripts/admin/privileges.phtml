@@ -1,0 +1,71 @@
+<?php
+    function doResources($script, array &$result, $items, $roles)
+    {
+        $lastModule = NULL;
+        $acl = Zend_Registry::get('acl');
+
+        foreach ($items as $resource) {
+            if ($resource->module != $lastModule) {
+                $result[] = array(
+                    'data' => array(
+                        array($resource->module . ' module', array('colspan' => 50))
+                    ),
+                    'attribs' => array('class' => 'sectionHeader')
+                );
+            }
+
+//            $q = Doctrine_Query::create()
+//                    ->from('User_Model_Resource')
+//                    ->where('module')
+
+            foreach ($resource->Privileges as $privilege) {
+                $resultArr = array(
+                    array(
+                        $resource->resource . ' : ' . $privilege->privilege,
+                        array('style' => 'text-indent: 2em;')
+                    )
+                );
+
+                foreach ($roles as $role) {
+                    $roleAllowed = $role->isAllowed($resource, $privilege->privilege);
+                    
+                    $inherit = FALSE;
+                    foreach ($role->Parents as $parent) {
+                        if ($acl->isAllowed($parent, $resource, $privilege->privilege)) {
+                            $inherit = TRUE;
+                            break;
+                        }
+                    }
+
+                    $options = array(1 => 'Yes', -1 => 'No', 0 => 'Inherit (' . $script->yesNo($inherit) . ')');
+                    $elementName = $role->id . '[' . $privilege->id . ']';
+                    $select = $script->formSelect($elementName, $roleAllowed, NULL, $options);
+                    $resultArr[] = $select;
+                }
+                
+                $result[] = $resultArr;
+            }
+            
+            $lastModule = $resource['module'];
+        }
+    }
+    
+    $theadItems = array(array(
+		array('Privilege', array('style' => 'width: 100%'))
+    ));
+    foreach ($this->roles as $role) {
+        $theadItems[0][] = $role->name;
+    }
+    
+    $tbodyItems = array();
+    $resources  = array();
+    
+    foreach ($this->resources as $resource) { $resources[] = $resource; }
+    usort($resources, array('User_Model_Resource', 'resourceSort'));
+    
+    doResources($this, $tbodyItems, $resources, $this->roles);
+    $table = $this->htmlTable($theadItems, $tbodyItems, NULL, FALSE);
+    $button = $this->formSubmit('submit', 'Save');
+    $formContent = $table . $button;
+?>
+<?= $this->form('epic-form-privileges', array('method' => 'post', 'action' => $_SERVER['REQUEST_URI'], 'enctype' => 'application/x-www-form-urlencoded', 'class' => 'epic-form'), $formContent) ?>

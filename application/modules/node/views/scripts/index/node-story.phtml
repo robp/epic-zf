@@ -1,0 +1,10 @@
+<p>
+	Dateline: <?= $this->node->Fields->story_dateline ?><br/>
+	Story Date: <?= $this->node->Fields->story_date ?>
+</p>
+
+<p><?= $this->node->body ?></p>
+
+<?= $this->partial('index/_node-footer.phtml', array('node' => $this->node)); ?>
+
+<?= $this->partial('index/_comments.phtml', 'comment', array('node' => $this->node, 'form' => $this->form)); ?>

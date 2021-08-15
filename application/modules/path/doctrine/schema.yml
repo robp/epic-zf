@@ -1,0 +1,22 @@
+Path_Model_TypeRoute:
+  tableName: nodetype_route
+  columns:
+    nodetype_id:
+      type: integer
+      primary: true
+    route: 
+      type: string(255)
+      notnull: true
+  relations:
+    Type:
+      class: Node_Model_Type
+      local: nodetype_id
+      foreign: id
+      foreignAlias: Path
+      foreignType: one
+#    Route:
+#      class: Menu_Model_Route
+#      local: route_id
+#      foreign: id
+#      foreignAlias: Path
+#     foreignType: one

@@ -1,0 +1,4 @@
+<div id="menu-<?= $this->menu->name ?>">
+<h3 class="menu-title"><?= $this->menu->title ?></h3>
+<?= $this->navigation()->menu()->setRenderInvisible(FALSE)->renderMenu($this->menu->getContainer(), array('ulClass' => 'menu navigation collapsible')) ?>
+</div>

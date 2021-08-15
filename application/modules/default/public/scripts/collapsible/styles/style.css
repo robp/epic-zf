@@ -1,0 +1,38 @@
+@CHARSET "UTF-8";
+
+/*
+fieldset, fieldset.collapsible {
+        padding: 10px;
+        border: 1px solid black;
+        border-bottom-width: 1px;
+        border-left-width: 1px;
+        border-right-width: 1px;
+        margin-bottom: 1em;
+}
+*/
+
+fieldset.collapsed {
+	border-bottom-width: 0;
+	border-left-width: 0;
+	border-right-width: 0;
+	margin-bottom: 0;
+	margin-left: 1px;
+	padding-top: 0;
+	padding-bottom: 0;
+}
+
+fieldset.collapsible legend,
+fieldset.collapsed legend {
+	cursor: pointer;
+	padding: 0 5px;
+	text-indent: 15px;
+	text-decoration: underline;
+}
+
+legend.collapsible {
+	background: transparent url('../images/expanded.png') no-repeat 5px center;
+}
+
+legend.collapsed {
+	background: transparent url('../images/collapsed.png') no-repeat 5px center;
+}

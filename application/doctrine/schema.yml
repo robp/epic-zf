@@ -1,0 +1,570 @@
+options:
+  type: INNODB
+  collate: utf8_general_ci
+  charset: utf8
+
+
+Menu_Model_Menu:
+  tableName: menu
+  columns:
+    name:
+      type: string(40)
+      unique: true
+      notnull: true
+    title: string(80)
+    description: clob
+
+Menu_Model_Item:
+  tableName: menuitem
+  columns:
+    parent_id: integer
+    menu_id:
+      type: integer
+      notnull: true
+    label: string(255)
+    description: clob
+    weight:
+      name: weight as order
+      type: integer
+      default: 0
+    visible:
+      type: boolean
+      default: true
+    expanded:
+      type: boolean
+      default: false
+    resource: string(255)
+    privilege: string(255)
+    type:
+      type: string(20)
+      default: 'mvc'
+    uri: string(255)
+    action:
+      type: string(40)
+      default: 'index'
+    controller:
+      type: string(40)
+      default: 'index'
+    module:
+      type: string(40)
+      default: 'default'
+    params: array
+    route:
+      type: string(40)
+      default: 'default'
+    reset_params:
+      type: boolean
+      default: true
+  relations:
+    Menu:
+      class: Menu_Model_Menu
+      local: menu_id
+      foreign: id
+      foreignAlias: Items
+      onDelete: CASCADE
+    Parent:
+      class: Menu_Model_Item
+      local: parent_id
+      foreign: id
+      foreignAlias: Items
+      onDelete: CASCADE
+
+Menu_Model_Route:
+  tableName: route
+  columns:
+    name:
+      type: string(80)
+      unique: true
+      notnull: true
+    route:
+      type: string(255)
+      unique: true
+      notnull: true
+    defaults: array
+    reqs: array
+
+
+User_Model_User:
+  tableName: user
+  columns:
+    username:
+      type: string(40)
+      unique: true
+      notnull: true
+    password: string(32)
+    email_address:
+      type: string(80)
+      unique: true
+    status:
+      type: integer
+      notnull: true
+    confirm_code: string(32)
+  relations:
+    Roles:
+      class: User_Model_Role
+      local: user_id
+      foreign: role_id
+      refClass: User_Model_UserRole
+  actAs:
+    Timestampable:
+      onInsert: false
+    Sluggable:
+      fields: [username]
+      canUpdate: true
+
+User_Model_Role:
+  tableName: role
+  columns:
+    name:
+      type: string(40)
+      unique: true
+      notnull: true
+    description: string(255)
+    selectable:
+      type: boolean
+      default: true
+  relations:
+    Parents:
+      class: User_Model_Role
+      local: child_id
+      foreign: parent_id
+      foreignAlias: Children
+      refClass: User_Model_RoleParent
+      refClassRelationAlias: ParentsAlias
+    Users:
+      class: User_Model_User
+      local: role_id
+      foreign: user_id
+      refClass: User_Model_UserRole
+    Privileges:
+      class: User_Model_Privilege
+      local: role_id
+      foreign: privilege_id
+      refClass: User_Model_RolePrivilege
+
+User_Model_RoleParent:
+  tableName: role_parent
+  columns:
+    child_id:
+      type: integer
+      primary: true
+    parent_id:
+      type: integer
+      primary: true
+  relations:
+    Child:
+      class: User_Model_Role
+      local: child_id
+      foreign: id
+      foreignAlias: RoleParentParents
+      onDelete: CASCADE
+    Parent:
+      class: User_Model_Role
+      local: parent_id
+      foreign: id
+      foreignAlias: RoleParentChildren
+      onDelete: CASCADE
+      
+User_Model_UserRole:
+  tableName: user_role
+  columns:
+    user_id:
+      type: integer
+      primary: true
+    role_id:
+      type: integer
+      primary: true
+  relations:
+    User:
+      class: User_Model_User
+      local: user_id
+      foreign: id
+      onDelete: CASCADE
+    Role:
+      class: User_Model_Role
+      local: role_id
+      foreign: id
+      onDelete: CASCADE
+
+
+User_Model_Resource:
+  tableName: resource
+  columns:
+    parent_id: integer
+    module:
+      type: string(40)
+      notnull: true
+      default: 'default'
+    resource:
+      type: string(40)
+      notnull: true
+    rank:
+      name: rank as order
+      type: integer
+    description: string(255)
+  relations:
+    Parent:
+      class: User_Model_Resource
+      local: parent_id
+      foreign: id
+      foreignAlias: Children
+      onDelete: CASCADE
+
+User_Model_Privilege:
+  tableName: privilege
+  columns:
+    resource_id:
+      type: integer
+      notnull: true
+    privilege:
+      type: string(40)
+      notnull: true
+    rank:
+      name: rank as order
+      type: integer
+    description: string(255)
+  relations:
+    Resource:
+      class: User_Model_Resource
+      local: resource_id
+      foreign: id
+      foreignAlias: Privileges
+      onDelete: CASCADE
+    Roles:
+      class: User_Model_Role
+      local: privilege_id
+      foreign: role_id
+      refClass: User_Model_RolePrivilege
+
+User_Model_RolePrivilege:
+  tableName: role_privilege
+  columns:
+    role_id:
+      type: integer
+      primary: true
+    privilege_id:
+      type: integer
+      primary: true
+    allowed:
+      type: boolean
+      default: true
+  relations:
+    Role:
+      class: User_Model_Role
+      local: role_id
+      foreign: id
+      foreignAlias: RolePrivileges
+      onDelete: CASCADE
+    Privilege:
+      class: User_Model_Privilege
+      local: privilege_id
+      foreign: id
+      onDelete: CASCADE
+
+
+# This might be used for a Doctrine-based session save handler.
+#User_Model_Session:
+#  tableName: session
+#  columns:
+#    id:
+#      type: string(32)
+#      primary: true
+#    modified: integer
+#    lifetime: integer
+#   data: clob
+
+
+Node_Model_Node:
+  tableName: node
+  columns:
+    user_id: integer
+    type: string(40)
+    title: string(255)
+    body: clob
+    teaser: clob
+    published:
+      type: boolean
+      default: false
+    sticky:
+      type: boolean
+      default: false
+  relations:
+    User:
+      class: User_Model_User
+      local: user_id
+      foreign: id
+      foreignAlias: Nodes
+    Terms:
+      class: Taxonomy_Model_Term
+      local: node_id
+      foreign: term_id
+      refClass: Taxonomy_Model_NodeTerm
+    Type:
+      class: Node_Model_Type
+      local: type
+      foreign: name
+      foreignAlias: Nodes
+      onDelete: CASCADE
+#    Type:
+#      class: Node_Model_Type
+#      local: type_id
+#      foreign: id
+#      foreignAlias: Nodes
+  actAs:
+#    I18n:
+#      fields: [title, body, teaser]
+    Timestampable:
+      onInsert: false
+    Versionable:
+      auditLog: true
+    Searchable:
+      fields: [title, body, teaser]
+    Sluggable:
+      fields: [title]
+      canUpdate: true
+
+Node_Model_Node_Fields:
+  columns:
+    node_id:
+      type: integer
+      notnull: true
+#  relations:
+#    Node:
+#      type: one
+#      foreignType: one
+#      class: Node_Model_Node
+#      local: node_id
+#      foreign: id
+#      foreignAlias: Fields
+#      onDelete: CASCADE
+
+Node_Model_Type:
+  tableName: nodetype
+  columns:
+    name:
+      type: string(40)
+      notnull: true
+      unique: true
+    class: string(80)
+    title: string(80)
+    hasTitle:
+      type: boolean
+      default: true
+    titleLabel:
+      type: string(80)
+      default: Title
+    hasBody:
+      type: boolean
+      default: true
+    bodyLabel:
+      type: string(80)
+      default: Body
+    description: string(255)
+  relations:
+#    Nodes:
+#      type: many
+#      class: Node_Model_Node
+#      local: name
+#      foreign: type
+#      foreignAlias: Type
+    Vocabularies:
+      class: Taxonomy_Model_Vocabulary
+      local: nodetype_id
+      foreign: vocabulary_id
+      refClass: Taxonomy_Model_VocabularyNodetype
+
+Node_Model_Page:
+  inheritance:
+    extends: Node_Model_Node
+    type: column_aggregation
+    keyField: type
+    keyValue: page
+
+Node_Model_Story:
+  inheritance:
+    extends: Node_Model_Node
+    type: column_aggregation
+    keyField: type
+    keyValue: story
+
+Node_Model_Story_Fields:
+  inheritance:
+    extends: Node_Model_Node_Fields
+    type: concrete
+  columns:
+    story_dateline: string(255)
+    story_date: timestamp
+  relations:
+    Node:
+      type: one
+      foreignType: one
+      class: Node_Model_Story
+      local: node_id
+      foreign: id
+      foreignAlias: Fields
+      onDelete: CASCADE
+#  actAs:
+#    I18n:
+#      fields: [title, body, teaser, story_dateline]
+
+
+
+Path_Model_TypeRoute:
+  tableName: nodetype_route
+  columns:
+    nodetype_id:
+      type: integer
+      primary: true
+    route: 
+      type: string(255)
+      notnull: true
+  relations:
+    Type:
+      class: Node_Model_Type
+      local: nodetype_id
+      foreign: id
+      foreignAlias: Path
+      foreignType: one
+#    Route:
+#      class: Menu_Model_Route
+#      local: route_id
+#      foreign: id
+#      foreignAlias: Path
+#     foreignType: one
+
+Taxonomy_Model_Vocabulary:
+  tableName: vocabulary
+  columns:
+    name:
+      type: string(80)
+      notnull: true
+      unique: true
+    description: clob
+    help: string(255)
+    tags: bool
+    multiple: bool
+    required: bool
+    weight:
+      type: integer
+      notnull: true
+      default: 0
+  relations:
+    Terms:
+      type: many
+      class: Taxonomy_Model_Term
+      local: id
+      foreign: vocabulary_id
+    Types:
+      class: Node_Model_Type
+      local: vocabulary_id
+      foreign: nodetype_id
+      refClass: Taxonomy_Model_VocabularyNodetype
+
+Taxonomy_Model_VocabularyNodetype:
+  tableName: vocabulary_nodetype
+  columns:
+    vocabulary_id:
+      type: integer
+      primary: true
+    nodetype_id:
+      type: integer
+      primary: true
+  relations:
+    Vocabulary:
+      class: Taxonomy_Model_Vocabulary
+      local: vocabulary_id
+      foreign: id
+      onDelete: CASCADE
+    Type:
+      class: Node_Model_Type
+      local: nodetype_id
+      foreign: id
+      onDelete: CASCADE
+
+Taxonomy_Model_Term:
+  tableName: term
+  columns:
+    vocabulary_id: integer
+    name:
+      type: string(80)
+      notnull: true
+      unique: true
+    description: clob
+    weight:
+      type: integer
+      notnull: true
+      default: 0
+  relations:
+    Vocabulary:
+      class: Taxonomy_Model_Vocabulary
+      local: vocabulary_id
+      foreign: id
+      onDelete: CASCADE
+    Nodes:
+      class: Node_Model_Node
+      local: term_id
+      foreign: node_id
+      refClass: Taxonomy_Model_NodeTerm
+
+Taxonomy_Model_NodeTerm:
+  tableName: node_term
+  columns:
+    node_id:
+      type: integer
+      primary: true
+    term_id:
+      type: integer
+      primary: true
+  relations:
+    Node:
+      class: Node_Model_Node
+      local: node_id
+      foreign: id
+      onDelete: CASCADE
+    Term:
+      class: Taxonomy_Model_Term
+      local: term_id
+      foreign: id
+      onDelete: CASCADE
+
+
+Comment_Model_Comment:
+  inheritance:
+    extends: Node_Model_Node
+    type: column_aggregation
+    keyField: type
+    keyValue: comment
+  columns:
+    field_comment_node_id: integer
+  relations:
+    CommentNode:
+      class: Node_Model_Node
+      local: field_comment_node_id
+      foreign: id
+      foreignAlias: Comments
+      onDelete: CASCADE
+
+Comment_Model_Comment_Fields:
+  inheritance:
+    extends: Node_Model_Node_Fields
+    type: concrete
+  columns:
+    parent_id: integer
+    name: string(80)
+    email: string(255)
+    url: string(255)
+  relations:
+    Node:
+      type: one
+      foreignType: one
+      class: Comment_Model_Comment
+      local: node_id
+      foreign: id
+      foreignAlias: Fields
+      onDelete: CASCADE
+    Parent:
+      class: Comment_Model_Comment
+      local: parent_id
+      foreign: id
+      foreignAlias: Comments
+      onDelete: CASCADE

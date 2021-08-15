@@ -1,0 +1,6 @@
+<div class="node-list">
+<?
+    $this->partialLoop()->setObjectKey('node');
+    echo $this->partialLoop('index/node-comment.phtml', $this->nodes);;
+?>
+</div>

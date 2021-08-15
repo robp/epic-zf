@@ -1,0 +1,152 @@
+User_Model_Resource:
+  Resource_1:
+    module: node
+    resource: nodes
+    Privileges:
+      Privilege_1_1:
+        privilege: administer
+  Resource_2:
+    module: node
+    resource: 'node types'
+    Privileges:
+      Privilege_2_1:
+        privilege: administer
+  Resource_3:
+    module: node
+    resource: 'publishing options'
+    Privileges:
+      Privilege_3_1:
+        privilege: administer
+  Resource_4:
+    module: node
+    resource: 'node type page'
+#    Parent: Resource_1
+    Privileges:
+      Privilege_4_1:
+        privilege: create
+      Privilege_4_2:
+        privilege: 'edit any'
+      Privilege_4_3:
+        privilege: 'edit own'
+      Privilege_4_4:
+        privilege: 'delete any'
+      Privilege_4_5:
+        privilege: 'delete own'
+  Resource_5:
+    module: node
+    resource: 'node type story'
+#    Parent: Resource_1
+    Privileges:
+      Privilege_5_1:
+        privilege: create
+      Privilege_5_2:
+        privilege: 'edit any'
+      Privilege_5_3:
+        privilege: 'edit own'
+      Privilege_5_4:
+        privilege: 'delete any'
+      Privilege_5_5:
+        privilege: 'delete own'
+
+#User_Model_RolePermission:
+#  RolePermission_1:
+#    role_id: 3
+#    User_Model_Permission: Permission_1
+#  RolePermission_2:
+#    role_id: 3
+#    User_Model_Permission: Permission_2
+#  RolePermission_3:
+#    role_id: 3
+#    User_Model_Permission: Permission_3
+
+
+Menu_Model_Item:
+  Item_1:
+    menu_id: 1
+    parent_id: 1
+    label: 'Nodes'
+    module: node
+    controller: admin
+    route: adminTask
+    resource: 'node:nodes'
+    privilege: administer
+  Item_List:
+    menu_id: 1
+    Parent: Item_1
+    label: 'List Nodes'
+    action: list
+    module: node
+    controller: admin
+    route: adminTask
+    resource: 'node:nodes'
+    privilege: administer
+  Item_Create:
+    menu_id: 1
+    Parent: Item_1
+    label: 'Create Node'
+    action: create
+    module: node
+    controller: admin
+    route: adminTask
+    resource: 'node:nodes'
+    privilege: administer
+  Item_Edit:
+    menu_id: 1
+    Parent: Item_1
+    label: 'Edit Node'
+    action: edit
+    module: node
+    controller: admin
+    route: adminTask
+    visible: false
+    resource: 'node:nodes'
+    privilege: administer
+  Item_Delete:
+    menu_id: 1
+    Parent: Item_1
+    label: 'Delete Node'
+    action: delete
+    module: node
+    controller: admin
+    route: adminTask
+    visible: false
+    resource: 'node:nodes'
+    privilege: administer
+  Item_Types:
+    menu_id: 1
+    Parent: Item_1
+    label: 'List Node Types'
+    action: types
+    module: node
+    controller: admin
+    route: adminTask
+    resource: 'node:node types'
+    privilege: administer
+    
+
+# create our routes first, so that the
+# node types can associate with a route.
+Menu_Model_Route:
+  Menu_Model_Route_2:
+    name: nodeViewId
+    route: node/:id
+    defaults:
+      module: node
+      controller: index
+      action: view
+#    reqs:
+#      id: '\d+'
+
+Node_Model_Type:
+  Node_Model_Type_Page:
+    name: page
+    title: Page
+    class: Node_Model_Page
+    description: 'A simple node with title and body elements.'
+#    Route: Route_Page
+  Node_Model_Type_Story:
+    name: story
+    title: Story
+    class: Node_Model_Story
+    description: 'A simple node with date and location.'
+#    Route: Route_Story

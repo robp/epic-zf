@@ -1,0 +1,7 @@
+<?
+$url = $this->url(array('action' => 'set', 'title' => $this->cleanUrl($this->set->title)));
+$photoSize = 'Small';
+?>
+<h2><a href="<?= $url ?>"><?= $this->escape($this->set->title) ?></a></h2>
+
+<?= $this->partial('photos/_thumbnail.phtml', array('photo' => $this->photo, 'photoSize' => $photoSize, 'url' => $url)) ?>

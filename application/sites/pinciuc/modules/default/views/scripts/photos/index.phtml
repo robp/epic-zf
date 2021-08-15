@@ -1,0 +1,9 @@
+<?//= $this->partial('_pager.phtml', array('numItems' => 45, 'itemsPerPage' => 10, 'page' => 3)) ?>
+
+<?
+    $items = array();
+    foreach ($this->sets as $set) {
+        $items[] = $this->partial('photos/_setTile.phtml', array('set' => $set['set'], 'photo' => $set['photo']));
+    }
+?>
+<?= $this->htmlList($items, false, array('class' => 'sets'), false) ?>

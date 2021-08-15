@@ -1,0 +1,26 @@
+<div class="archive">
+<h3>Archive</h3>
+
+<ul class="collapsible">
+<? foreach ($this->archive as $year => $months): ?>
+<? $classYear = (isset($this->entry) && $this->entry->getPublished()->get(Zend_Date::YEAR) == $year) ? 'active' : '' ?>
+<li class="<?= $classYear ?>">
+	<a href="<?= $this->bloggerDateLink($year) ?>"><?= $year ?></a> (<?= $this->bloggerEntryCount($months) ?>)
+    <ul>
+    <? foreach ($months as $month => $entries): ?>
+    <? $classMonth = ($classYear && $this->entry->getPublished()->get(Zend_Date::MONTH) == $month) ? 'active' : ''; ?>
+    <li class="<?= $classMonth ?>">
+    	<a href="<?= $this->bloggerDateLink($year, $month) ?>"><?= $this->displayDate("$year-$month", 'MMMM') ?></a> (<?= $this->bloggerEntryCount($entries) ?>)
+    	<ul>
+    	<? foreach ($entries as $entry): ?>
+    	<? $class = (isset($this->entry) && $this->entry->id == $entry->id) ? 'active' : ''; ?>
+    	<li class="<?= $class ?>"><a href="<?= $this->bloggerPermalink($entry) ?>"><?= $entry->title ?></a></li>
+    	<? endforeach ?>
+    	</ul>
+    </li>
+    <? endforeach ?>
+    </ul>
+</li>
+<? endforeach ?>
+</ul>
+</div>

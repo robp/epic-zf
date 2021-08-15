@@ -1,0 +1,21 @@
+<? 
+$classes = array('node');
+if ($this->partialCounter == 1) {
+    $classes[] = 'first';
+}
+$classes[] = $this->partialCounter % 2 == 1 ? 'odd' : 'even';
+?>
+<div class="<?= join(' ', $classes) ?>">
+    <h2><a href="<?= $this->permalink($this->node) ?>" title="Permalink to <?= $this->escape($this->node->title) ?>"><?= $this->escape($this->node->title) ?></a></h2>
+    
+    <p><?= $this->node->teaser ?></p>
+    
+    <p>Link: <?= $this->permalink($this->node) ?></p>
+    
+    <p>Type: <?= $this->node->Type->title ?> (<?= $this->node->Type->description ?>)</p>
+
+    <p class="entryFooter">
+        &rarr; Created by <?= $this->node->User->username ?> 
+        on <?= $this->node->created_at ?>.
+    </p>
+</div>

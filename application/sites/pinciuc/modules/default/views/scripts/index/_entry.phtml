@@ -1,0 +1,16 @@
+<? 
+$classes = array('entry');
+if ($this->partialCounter == 1) {
+    $classes[] = 'first';
+}
+$classes[] = $this->partialCounter % 2 == 1 ? 'odd' : 'even';
+?>
+<div class="<?= join(' ', $classes) ?>">
+    <h3><a href="<?= $this->bloggerPermalink($this->entry) ?>" title="Permalink to <?= $this->escape($this->entry->title) ?>"><?= $this->escape($this->entry->title) ?></a></h3>
+    
+    <p><?= $this->trimToWords(strip_tags(str_replace('http://www.blogger.com/', 'http://www.pinciuc.com/', $this->entry->content)), 50, '...') ?></p>
+    
+    <p class="entryFooter">
+        &rarr; <a href="<?= $this->bloggerPermalink($this->entry) ?>" title="Permalink to <?= $this->escape($this->entry->title) ?>">Read More</a>
+    </p>
+</div>

@@ -1,0 +1,8 @@
+<?php
+    $minDepth = 0;
+    $active = $this->navigation()->findActive($this->navigation()->getContainer());
+    if (isset($active['depth'])) {
+        $minDepth = $active['depth'];
+    }
+?>
+<?= $this->navigation()->menu()->setRenderInvisible(FALSE)->setOnlyActiveBranch(TRUE)->setRenderParents(FALSE)->setMinDepth($minDepth+1) ?>

@@ -1,0 +1,21 @@
+<h2>Terms in '<?= $this->escape($this->vocabulary->name) ?>'</h2>
+
+<?php
+    $theadItems = array(array(
+        '<input type="checkbox"/>',
+		'Name',
+        'Weight',
+        array('Actions', array('colspan' => 3))
+    )); 
+
+    $tbodyItems = array();
+    foreach ($this->terms as $term) {
+        $tbodyItems[] = array(
+            '<input type="checkbox"/>',
+            $this->escape($term->name),
+            $this->escape($term->weight),
+            '<a href="' . $this->url(array('action' => 'termedit', 'id' => $term->id), 'adminTask') . '" title="Edit ' . $this->escape($term->name) . '">Edit</a>',
+        );
+    }
+?>
+<?= $this->htmlTable($theadItems, $tbodyItems, NULL, FALSE, "headers: {0: {sorter: false}, 3: {sorter: false}}") ?>

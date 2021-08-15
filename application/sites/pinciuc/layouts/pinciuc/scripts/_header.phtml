@@ -1,0 +1,6 @@
+<div id="logo"><a class="noborder reverse" title="Home" href="<?= $this->layout()->frontPage->getHref() ?>">Rob Pinciuc</a></div>
+
+<div id="primary-links" class="dropdown-menu">
+  <div class="menu-first"><a href="<?= $this->layout()->frontPage->getHref() ?>">Home</a></div>
+  <?= $this->navigation()->menu()->renderMenu($this->getMenu('primary-links')->getContainer(), array('maxDepth' => 0)) ?>
+</div>

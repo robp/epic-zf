@@ -1,0 +1,483 @@
+Menu_Model_Item:
+  Item_1:
+    menu_id: 1
+    parent_id: 1
+    label: 'Users'
+    module: user
+    controller: admin
+    route: adminTask
+    resource: 'user:users'
+    privilege: 'administer'
+  Item_2:
+    menu_id: 1
+    Parent: Item_1
+    label: 'List Users'
+    module: user
+    controller: admin
+    action: list
+    route: adminTask
+    resource: 'user:users'
+    privilege: 'administer'
+  Item_Create:
+    menu_id: 1
+    Parent: Item_1
+    label: 'Create User'
+    module: user
+    controller: admin
+    action: create
+    route: adminTask
+    resource: 'user:users'
+    privilege: 'administer'
+  Item_3:
+    menu_id: 1
+    Parent: Item_1
+    label: 'Edit User'
+    module: user
+    controller: admin
+    action: edit
+    route: adminTask
+    visible: false
+    resource: 'user:users'
+    privilege: 'administer'
+  Item_Delete:
+    menu_id: 1
+    Parent: Item_1
+    label: 'Delete User'
+    module: user
+    controller: admin
+    action: delete
+    route: adminTask
+    visible: false
+    resource: 'user:users'
+    privilege: 'administer'
+  Item_Roles:
+    menu_id: 1
+    Parent: Item_1
+    label: 'Roles'
+    order: 10
+    module: user
+    controller: admin
+    action: roles
+    route: adminTask
+    resource: 'user:privileges'
+    privilege: 'administer'
+  Item_Roles_Create:
+    menu_id: 1
+    Parent: Item_Roles
+    label: 'Create Role'
+    module: user
+    controller: admin
+    action: rolecreate
+    route: adminTask
+    resource: 'user:privileges'
+    privilege: 'administer'
+  Item_Roles_Edit:
+    menu_id: 1
+    Parent: Item_Roles
+    label: 'Edit Role'
+    module: user
+    controller: admin
+    action: roleedit
+    route: adminTask
+    resource: 'user:privileges'
+    privilege: 'administer'
+    visible: false
+  Item_Roles_Delete:
+    menu_id: 1
+    Parent: Item_Roles
+    label: 'Delete Role'
+    module: user
+    controller: admin
+    action: roledelete
+    route: adminTask
+    resource: 'user:privileges'
+    privilege: 'administer'
+    visible: false
+  Item_Privileges:
+    menu_id: 1
+    Parent: Item_Roles
+    label: 'Privileges'
+    order: 20
+    module: user
+    controller: admin
+    action: privileges
+    route: adminTask
+    resource: 'user:privileges'
+    privilege: 'administer'
+  Item_4:
+    menu_id: 1
+    label: 'Your Account'
+    module: user
+    controller: view
+    route: userViewSelf
+    resource: 'user:profile'
+    privilege: 'access own'
+  Item_6:
+    menu_id: 1
+    Parent: Item_4
+    label: 'Edit'
+    module: user
+    controller: edit
+    route: userEditSelf
+#    visible: false
+    resource: 'user:profile'
+    privilege: 'edit own'
+  Item_7:
+    menu_id: 1
+    label: Login
+    module: user
+    controller: login
+    route: userLogin
+    resource: 'user:account'
+    privilege: 'login'
+  Item_8:
+    menu_id: 1
+    label: Logout
+    module: user
+    controller: logout
+    route: userLogout
+    resource: 'user:account'
+    privilege: 'logout'
+  Item_9:
+    menu_id: 1
+    label: Register
+    module: user
+    controller: register
+    route: userRegister
+    resource: 'user:account'
+    privilege: 'register'
+  Item_10:
+    Parent: Item_9
+    menu_id: 1
+    label: Success
+    module: user
+    controller: register
+    action: success
+    visible: false
+    resource: 'user:account'
+    privilege: 'register'
+  Item_11:
+    Parent: Item_9
+    menu_id: 1
+    label: 'Account Confirmation'
+    module: user
+    controller: register
+    action: confirm
+    visible: false
+    resource: 'user:account'
+    privilege: 'register'
+  Item_12:
+    menu_id: 1
+    label: 'Member Directory'
+    module: user
+    controller: list
+    route: userList
+    resource: 'user:profile'
+    privilege: 'access other'
+  Item_13:
+    Parent: Item_12
+    menu_id: 1
+    label: 'View'
+    module: user
+    controller: view
+    action: other
+    reset_params: false
+    route: userViewOther
+    visible: false
+    resource: 'user:profile'
+    privilege: 'access other'
+#  Item_14:
+#    Parent: Item_13
+#    menu_id: 1
+#    label: 'Edit'
+#    module: user
+#    controller: edit
+#    action: other
+#    reset_params: false
+#    route: userEditOther
+#    resource: 'user:edit other profiles'
+  Item_15:
+    Parent: Item_12
+    menu_id: 1
+    label: 'Search'
+    module: user
+    controller: search
+    route: userSearch
+#    visible: false
+    resource: 'user:profile'
+    privilege: 'access other'
+
+
+Menu_Model_Route:
+  Route_ViewSelf:
+    name: userViewSelf
+    route: user
+    defaults:
+      module: user
+      controller: view
+      action: index
+  Route_EditSelf:
+    name: userEditSelf
+    route: user/edit
+    defaults:
+      module: user
+      controller: edit
+      action: index
+  Route_Login:
+    name: userLogin
+    route: user/login
+    defaults:
+      module: user
+      controller: login
+      action: index
+  Route_Logout:
+    name: userLogout
+    route: user/logout
+    defaults:
+      module: user
+      controller: logout
+      action: index
+  Route_Register:
+    name: userRegister
+    route: user/register
+    defaults:
+      module: user
+      controller: register
+      action: index
+  Route_Register_Success:
+    name: userRegisterSuccess
+    route: user/register/success
+    defaults:
+      module: user
+      controller: register
+      action: success
+  Route_Register_Confirm:
+    name: userRegisterConfirm
+    route: user/register/confirm/*
+    defaults:
+      module: user
+      controller: register
+      action: confirm
+  Route_List:
+    name: userList
+    route: user/list
+    defaults:
+      module: user
+      controller: list
+      action: index
+  Route_Search:
+    name: userSearch
+    route: user/search
+    defaults:
+      module: user
+      controller: search
+      action: index
+  Route_ViewOther:
+    name: userViewOther
+    route: users/:identifier
+    defaults:
+      module: user
+      controller: view
+      action: other
+      identifier: ''
+#  Route_Edit:
+#    name: userEdit
+#    route: user/:identifier/edit
+#    defaults:
+#      module: user
+#      controller: edit
+#      action: other
+#      identifier: ''
+#  Route_6:
+#    name: userEditId
+#    route: user/edit/:id
+#    defaults:
+#      module: user
+#      controller: edit
+#      action: other
+#    reqs:
+#      id: '\d+'
+
+User_Model_Resource:
+  Resource_1:
+    module: user
+    resource: profile
+    Privileges:
+      Privilege_1_1:
+        privilege: 'access own'
+      Privilege_1_2:
+        privilege: 'access other'
+      Privilege_1_3:
+        privilege: 'edit own'
+      Privilege_1_4:
+        privilege: 'edit other'
+  Resource_2:
+    module: user
+    resource: account
+    Privileges:
+      Privilege_2_1:
+        privilege: 'register'
+      Privilege_2_2:
+        privilege: 'login'
+      Privilege_2_3:
+        privilege: 'logout'
+  Resource_5:
+    module: user
+    resource: password
+    Privileges:
+      Privilege_5_1:
+        privilege: 'change own'
+  Resource_7:
+    module: user
+    resource: username
+    Privileges:
+      Privilege_7_1:
+        privilege: 'change own'
+  Resource_8:
+    module: admin
+    resource: menu
+    Privileges:
+      Privilege_8_1:
+        privilege: 'access'
+  Resource_9:
+    module: user
+    resource: privileges
+    Privileges:
+      Privilege_9_1:
+        privilege: 'administer'
+  Resource_10:
+    module: user
+    resource: users
+    Privileges:
+      Privilege_10_1:
+        privilege: 'administer'
+  Resource_11:
+    module: menu
+    resource: menus
+    Privileges:
+      Privilege_11_1:
+        privilege: 'administer'
+
+
+User_Model_Role:
+  Role_Anonymous:
+    name: 'anonymous user'
+    description: 'A user that has not logged in.'
+    selectable: false
+  Role_Authenticated:
+    name: 'authenticated user'
+    description: 'A user that has logged in.'
+    selectable: false
+#  Role_Administrator:
+#    name: administrator
+#    description: 'Cool users that get to do everything.'
+
+User_Model_RoleParent:
+  RoleParent_1:
+    child_id: 2
+    parent_id: 1
+    
+    
+User_Model_RolePrivilege:
+  RolePrivilege_1:
+#    # anonymous register
+    role_id: 1
+    privilege_id: 5
+#    Role: Role_Anonymous
+#   Privilege: Privilege_2_1
+  RolePrivilege_2:
+#    # anonymous login
+    role_id: 1
+    privilege_id: 6
+#    Role: Role_Anonymous
+#   Privilege: Privilege_2_2
+  RolePrivilege_3:
+#    # authenticated no register
+    role_id: 2
+    privilege_id: 5
+    allowed: false
+  RolePrivilege_4:
+#    # authenticated no login
+    role_id: 2
+    privilege_id: 6
+    allowed: false
+  RolePrivilege_5:
+#    # authenticated logout
+    role_id: 2
+    privilege_id: 7
+  RolePrivilege_6:
+#    # authenticated access own profile
+    role_id: 2
+    privilege_id: 1
+  RolePrivilege_7:
+#    # authenticated access other profile
+    role_id: 2
+    privilege_id: 2
+  RolePrivilege_8:
+#    # authenticated edit own profile
+    role_id: 2
+    privilege_id: 3
+  RolePrivilege_9:
+#    # authenticated change own password
+    role_id: 2
+    privilege_id: 8
+#  RolePermission_1:
+#    User_Model_Role: Role_Authenticated
+#    User_Model_Permission: Permission_1
+#  RolePermission_2:
+#    User_Model_Role: Role_Anonymous
+#    User_Model_Permission: Permission_2
+#  RolePermission_3:
+#    User_Model_Role: Role_Anonymous
+#    User_Model_Permission: Permission_3
+#  RolePermission_4:
+#    User_Model_Role: Role_Authenticated
+#    User_Model_Permission: Permission_2
+#    allowed: false
+#  RolePermission_5:
+#    User_Model_Role: Role_Authenticated
+#    User_Model_Permission: Permission_3
+#    allowed: false
+#  RolePermission_6:
+#    User_Model_Role: Role_Authenticated
+#    User_Model_Permission: Permission_4
+#  RolePermission_7:
+#    User_Model_Role: Role_Authenticated
+#    User_Model_Permission: Permission_5
+#  RolePermission_8:
+#    User_Model_Role: Role_Authenticated
+#    User_Model_Permission: Permission_6
+#  RolePermission_9:
+#    User_Model_Role: Role_Authenticated
+#    User_Model_Permission: Permission_7
+#  RolePermission_10:
+#    User_Model_Role: Role_Administrator
+#    User_Model_Permission: Permission_8
+#  RolePermission_11:
+#    User_Model_Role: Role_Administrator
+#    User_Model_Permission: Permission_9
+#  RolePermission_12:
+#    User_Model_Role: Role_Administrator
+#    User_Model_Permission: Permission_10
+#  RolePermission_13:
+#    User_Model_Role: Role_Administrator
+#    User_Model_Permission: Permission_11
+#  RolePermission_14:
+#    User_Model_Role: Role_Authenticated
+#    User_Model_Permission: Permission_12
+#  RolePermission_15:
+#    User_Model_Role: Role_Administrator
+#    User_Model_Permission: Permission_13
+    
+User_Model_User:
+  User_Admin:
+#    Role: Role_Administrator
+    username: admin
+    password: 3858f62230ac3c915f300c664312c63f
+    email_address: rob+admin@pinciuc.com
+    status: '1'
+
+#User_Model_UserRole:
+#  UserRole_1:
+#    user_id: 1
+#    role_id: 3

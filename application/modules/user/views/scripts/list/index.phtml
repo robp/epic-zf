@@ -1,0 +1,5 @@
+<ul>
+<? foreach ($this->users as $user): ?>
+<li><a href="<?= $this->url(array('controller' => 'view', 'identifier' => $user->slug), 'userViewOther') ?>" title="Edit <?= $this->escape($user->username) ?>"><?= $user->username ?></a></li>
+<? endforeach ?>
+</ul>

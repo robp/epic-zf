@@ -1,0 +1,108 @@
+Menu_Model_Menu:
+  Menu_Navigation:
+    name: navigation
+    title: Navigation
+    description: 'The system navigation menu.'
+  Menu_PrimaryLinks:
+    name: primary-links
+    title: 'Primary Links'
+    description: 'The main navigation menu.'
+  Menu_SecondaryLinks:
+    name: secondary-links
+    title: 'Secondary Links'
+    description: 'The secondary navigation menu.'
+
+Menu_Model_Item:
+  Item_Administer:
+    Menu: Menu_Navigation
+    label: Administer
+    module: admin
+    controller: admin
+    route: adminTask
+    resource: 'admin:menu'
+    privilege: access
+  Item_Menus:
+    Parent: Item_Administer
+    Menu: Menu_Navigation
+    label: 'Menus'
+    module: menu
+    controller: admin
+    route: adminTask
+    resource: 'menu:menus'
+    privilege: administer
+  Item_List:
+    Parent: Item_Menus
+    Menu: Menu_Navigation
+    label: 'List Menus'
+    module: menu
+    controller: admin
+    action: list
+    route: adminTask
+    resource: 'menu:menus'
+    privilege: administer
+  Item_Create:
+    Parent: Item_Menus
+    Menu: Menu_Navigation
+    label: 'Create Menu'
+    module: menu
+    controller: admin
+    action: create
+    route: adminTask
+    resource: 'menu:menus'
+    privilege: administer
+  Item_Edit:
+    Parent: Item_Menus
+    Menu: Menu_Navigation
+    label: 'Edit Menu'
+    module: menu
+    controller: admin
+    action: edit
+    route: adminTask
+    visible: false
+    resource: 'menu:menus'
+    privilege: administer
+  Item_Items:
+    Parent: Item_Menus
+    Menu: Menu_Navigation
+    label: 'List Items'
+    module: menu
+    controller: admin
+    action: items
+    route: adminTask
+    visible: false
+    resource: 'menu:menus'
+    privilege: administer
+  Item_Item_Create:
+    Parent: Item_Menus
+    Menu: Menu_Navigation
+    label: 'Add Item'
+    module: menu
+    controller: admin
+    action: itemcreate
+    route: adminTask
+    visible: false
+    resource: 'menu:menus'
+    privilege: administer
+  Item_Item_Edit:
+    Parent: Item_Menus
+    Menu: Menu_Navigation
+    label: 'Edit Item'
+    module: menu
+    controller: admin
+    action: itemedit
+    route: adminTask
+    visible: false
+    resource: 'menu:menus'
+    privilege: administer
+  Item_Item_Delete:
+    Parent: Item_Menus
+    Menu: Menu_Navigation
+    label: 'Delete Item'
+    module: menu
+    controller: admin
+    action: itemdelete
+    route: adminTask
+    visible: false
+    resource: 'menu:menus'
+    privilege: administer
+    

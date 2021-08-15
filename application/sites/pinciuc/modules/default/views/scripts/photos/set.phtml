@@ -1,0 +1,20 @@
+<? 
+//$this->headTitle($this->set->title);
+//$this->headTitle('Photography');
+?>
+<? $url = $this->url(array('action' => 'index', 'title' => NULL, 'page' => NULL)) ?>
+<!--<h2><a href="<?= $url ?>" title="Up to Photography">&uarr; <?= $this->escape($this->set->title) ?></a></h2>-->
+
+<?
+    if ($this->pages > 1) {
+        echo $this->partial('_pager.phtml', array('page' => $this->page, 'pages' => $this->pages));
+    }
+?>
+
+<?
+    $items = array();
+    foreach ($this->photos as $photo) {
+        $items[] = $this->partial('photos/_photoTile.phtml', array('set' => $this->set, 'photo' => $photo));
+    }
+?>
+<?= $this->htmlList($items, false, array('class' => 'photos'), false) ?>

@@ -1,0 +1,11 @@
+<p>Are you sure you want to delete '<?= $this->vocabulary->name ?>'?</p>
+
+<? if (count($this->vocabulary->Terms)): ?>
+<p><strong>Warning:</strong> This vocabulary currently contains <?= count($this->vocabulary->Terms) ?> term(s). They will also be deleted!</p>
+<? endif ?>
+
+<? if (count($this->vocabulary->Types)): ?>
+<p><strong>Warning:</strong> This vocabulary is currently associated with <?= count($this->vocabulary->Types) ?> node type(s). These associations will also be deleted!</p>
+<? endif ?>
+
+<?= $this->form ?>

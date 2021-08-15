@@ -1,0 +1,21 @@
+<?php
+    $theadItems = array(array(
+        '<input type="checkbox"/>',
+		'Title',
+        'Description',
+        array('Actions', array('colspan' => 3))
+    )); 
+
+    $tbodyItems = array();
+    foreach ($this->menus as $menu) {
+        $tbodyItems[] = array(
+            '<input type="checkbox"/>',
+            $this->escape($menu->title),
+            $this->escape($menu->description),
+            '<a href="' . $this->url(array('action' => 'edit', 'name' => $menu->name), 'adminTask') . '" title="Edit ' . $this->escape($menu->title) . '">Edit</a>',
+            '<a href="' . $this->url(array('action' => 'items', 'name' => $menu->name), 'adminTask') . '" title="List Items">List Items</a>',
+            '<a href="' . $this->url(array('action' => 'itemcreate', 'name' => $menu->name), 'adminTask') . '" title="Add Item">Add Item</a>',
+        );
+    }
+?>
+<?= $this->htmlTable($theadItems, $tbodyItems, NULL, FALSE, "headers: {0: {sorter: false}, 2: {sorter: false}, 3: {sorter: false}}") ?>

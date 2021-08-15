@@ -1,0 +1,16 @@
+#Menu_Model_Item:
+#  Menu_Model_Item_1:
+#    menu_id: 1
+#    label: Administer
+#    module: admin
+#    route: adminTask
+#    resource: 'admin:access admin menu'
+
+Menu_Model_Route:
+  Route_1:
+    name: adminTask
+    route: 'admin/:module/:action/*'
+    defaults:
+      module: admin
+      controller: admin
+      action: index

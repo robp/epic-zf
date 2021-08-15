@@ -1,0 +1,17 @@
+<? $this->headLink()->headLink(array('rel' => 'alternate', 'type' => 'application/rss+xml', 'href' => 'http://feeds.feedburner.com/the-conduit')); ?>
+
+<?
+    if ($this->pages > 1) {
+        echo $this->partial('_pager.phtml', array('page' => $this->page, 'pages' => $this->pages));
+    }
+?>
+
+<div class="col odd first">
+    <?= $this->partial('updates/_entryList.phtml', array('entries' => $this->entries)) ?>
+</div>
+
+<div class="col even last">
+    <?= $this->action('archive', 'updates', NULL, array('entry' => $this->entries[0])) ?>
+    <?= $this->action('categories', 'updates', NULL, array('entry' => $this->entries[0])) ?>
+    <?= $this->partial('updates/_feeds.phtml') ?>
+</div>

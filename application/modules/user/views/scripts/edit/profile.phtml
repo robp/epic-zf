@@ -1,0 +1,7 @@
+<?php //$this->layout()->title = $this->user->username . "'s Profile" ?>
+<h2>Editing '<?php echo $this->user->username ?>'</h2>
+
+<ul>
+<li>Username: <?php echo $this->user->username ?></li>
+<li>Email Address: <?php echo $this->escape($this->user->email_address) ?></li>
+</ul>

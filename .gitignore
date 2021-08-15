@@ -1,0 +1,18 @@
+# EPIC config files.
+application/sites/*/configs/site.ini
+
+# CAPTCHA module images
+application/modules/captcha/public/images/captcha/*
+
+# Doctrine files
+/.cache
+
+# Eclipse/Zend Studio files.
+/.project
+/.settings
+
+# OS files
+.DS_Store
+
+# Old SVN files
+.svn

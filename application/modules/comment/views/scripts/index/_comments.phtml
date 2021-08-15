@@ -1,0 +1,13 @@
+<div id="comments">
+    <h2>Comments on this <?= $this->node->Type->title ?> (<?= count($this->node->Comments) ?>)</h2>
+
+	<? if (count($this->node->Comments)): ?>
+	    <?= $this->partial('index/_comment-list.phtml', 'comment', array('nodes' => Comment_Model_Comment::getChildItems($this->node->id))) ?>
+	<? else: ?>
+		<p>There are no comments for this <?= $this->node->Type->title ?>.</p>
+	<? endif ?>
+    
+    <h2>Add new comment</h2>
+
+    <?= $this->form ?>
+</div>
